@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosario Financiero - Super App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+
+        .term-card {
+            transition: all 0.3s ease;
+        }
+
+        .term-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white shadow-sm px-4 py-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                    <span class="text-white font-bold text-sm">SF</span>
+                </div>
+                <span class="font-semibold text-gray-800">Super App Financiera</span>
+            </div>
+            <button onclick="goBack()" class="text-gray-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="max-w-md mx-auto pb-20">
+        <!-- Hero Section -->
+        <div class="px-4 py-6">
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white text-center">
+                <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span class="text-2xl">📚</span>
+                </div>
+                <h1 class="text-xl font-bold mb-2">Glosario Financiero</h1>
+                <p class="text-blue-100">Aprende conceptos clave de forma simple y visual</p>
+            </div>
+        </div>
+
+        <!-- Barra de Búsqueda -->
+        <div class="px-4 mb-6">
+            <div class="bg-white rounded-2xl shadow-lg p-4">
+                <div class="relative">
+                    <svg class="w-5 h-5 absolute left-3 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                    <input type="text" id="searchInput" placeholder="Buscar términos..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Categorías -->
+        <div class="px-4 mb-6">
+            <div class="flex space-x-2 overflow-x-auto pb-2">
+                <button onclick="filterByCategory('all')" id="cat-all" class="px-4 py-2 bg-blue-600 text-white rounded-full text-sm font-medium whitespace-nowrap">
+                    Todos
+                </button>
+                <button onclick="filterByCategory('basics')" id="cat-basics" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                    Básicos
+                </button>
+                <button onclick="filterByCategory('saving')" id="cat-saving" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                    Ahorro
+                </button>
+                <button onclick="filterByCategory('investment')" id="cat-investment" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                    Inversión
+                </button>
+                <button onclick="filterByCategory('risk')" id="cat-risk" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium whitespace-nowrap">
+                    Riesgo
+                </button>
+            </div>
+        </div>
+
+        <!-- Lista de Términos -->
+        <div id="termsContainer" class="px-4 space-y-4">
+            <!-- Ahorra Primero -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="saving" data-term="ahorra-primero">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-green-600">🎯</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Ahorra Primero</h3>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ahorro</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('ahorra-primero')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-ahorra-primero" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Es la filosofía de <strong>separar el dinero para ahorrar ANTES de gastarlo</strong>, no después.
+                    </p>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">💡 ¿Por qué funciona?</h4>
+                        <p class="text-sm text-gray-700">
+                            Si esperas a que sobre dinero después de gastos, ¡nunca ahorras! Al automatizar el ahorro primero, te aseguras de que suceda.
+                        </p>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ En la práctica:</h4>
+                        <p class="text-sm text-gray-700">
+                            Recibes tu nómina → La app separa automáticamente 10% → El resto queda para tus gastos diarios.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diversificación -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="investment" data-term="diversificacion">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-blue-600">🎲</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Diversificación</h3>
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Inversión</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('diversificacion')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-diversificacion" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Es <strong>no poner todos los huevos en la misma canasta</strong>. Repartir tu dinero en diferentes tipos de inversión.
+                    </p>
+
+                    <div class="bg-yellow-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">📊 Ejemplo simple:</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span>Cuenta de ahorro:</span>
+                                <span class="font-medium">40%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>CETES (bonos gobierno):</span>
+                                <span class="font-medium">30%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Fondos balanceados:</span>
+                                <span class="font-medium">20%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>Fondos moderados:</span>
+                                <span class="font-medium">10%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ Beneficio:</h4>
+                        <p class="text-sm text-gray-700">
+                            Si una inversión baja, las otras pueden subir. ¡Reduce el riesgo total!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fondo de Emergencia -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="basics" data-term="fondo-emergencia">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-red-600">🛡️</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Fondo de Emergencia</h3>
+                            <span class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded-full">Básicos</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('fondo-emergencia')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-fondo-emergencia" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Es tu <strong>colchón financiero</strong> para imprevistos. Dinero que tienes disponible cuando pasan cosas inesperadas.
+                    </p>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">💰 ¿Cuánto necesito?</h4>
+                        <div class="grid grid-cols-3 gap-2 text-sm">
+                            <div class="text-center p-2 bg-white rounded-lg">
+                                <div class="font-bold text-blue-600">3 meses</div>
+                                <div class="text-gray-600">Mínimo</div>
+                            </div>
+                            <div class="text-center p-2 bg-blue-100 rounded-lg">
+                                <div class="font-bold text-blue-800">4-6 meses</div>
+                                <div class="text-gray-600">Recomendado</div>
+                            </div>
+                            <div class="text-center p-2 bg-white rounded-lg">
+                                <div class="font-bold text-blue-600">12 meses</div>
+                                <div class="text-gray-600">Máximo</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ ¿Dónde guardarlo?</h4>
+                        <p class="text-sm text-gray-700 mb-2">
+                            Debe estar en un lugar seguro y de fácil acceso:
+                        </p>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• Cuenta de ahorro digital</li>
+                            <li>• CETES o bonos de gobierno</li>
+                            <li>• Fondos de inversión líquidos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tolerancia al Riesgo -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="risk" data-term="tolerancia-riesgo">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-orange-600">⚖️</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Tolerancia al Riesgo</h3>
+                            <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">Riesgo</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('tolerancia-riesgo')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-tolerancia-riesgo" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Es cuánto <strong>riesgo estás dispuesto a asumir</strong> en tus inversiones. Depende de tu personalidad, edad y situación financiera.
+                    </p>
+
+                    <div class="bg-yellow-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-3">📊 Tipos de inversor:</h4>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-green-600 text-xs">🛡️</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-800">Conservador</div>
+                                    <div class="text-sm text-gray-600">Prefieres seguridad. Aceptas rendimientos bajos pero estables.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-blue-600 text-xs">⚖️</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-800">Moderado</div>
+                                    <div class="text-sm text-gray-600">Equilibrio entre riesgo y rendimiento. Aceptas algunas fluctuaciones.</div>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                    <span class="text-red-600 text-xs">🚀</span>
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-800">Agresivo</div>
+                                    <div class="text-sm text-gray-600">Buscas altos rendimientos. Aceptas volatilidad y posibles pérdidas.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">💡 ¿Cómo saber cuál eres?</h4>
+                        <p class="text-sm text-gray-700">
+                            Contesta estas preguntas: ¿Cuánto tiempo tienes para invertir? ¿Qué harías si tu inversión baja 20%? ¿Para qué necesitas el dinero?
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CETES -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="investment" data-term="cetes">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-indigo-600">🇲🇽</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">CETES</h3>
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">Inversión</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('cetes')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-cetes" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Son <strong>Certificados de la Tesorería</strong> de México. Son como un préstamo que le haces al gobierno mexicano.
+                    </p>
+
+                    <div class="bg-green-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ Ventajas:</h4>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>• <strong>Seguros:</strong> El gobierno de México respalda</li>
+                            <li>• <strong>Líquidos:</strong> Puedes venderlos cuando quieras</li>
+                            <li>• <strong>Exentos de impuestos:</strong> No pagas ISR</li>
+                            <li>• <strong>Accesibles:</strong> Puedes invertir desde $100</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">📊 Rendimiento típico:</h4>
+                        <div class="text-center">
+                            <div class="text-2xl font-bold text-blue-600 mb-1">8-12%</div>
+                            <div class="text-sm text-gray-600">al año (depende del plazo)</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">💡 Ideal para:</h4>
+                        <p class="text-sm text-gray-700">
+                            • Tu fondo de emergencia<br>
+                            • Ahorros a corto plazo (1-3 años)<br>
+                            • Personas conservadoras que buscan seguridad
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regla 1% -->
+            <div class="term-card bg-white rounded-2xl shadow-lg p-6" data-category="saving" data-term="regla-1">
+                <div class="flex items-start justify-between mb-4">
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-purple-600">📈</span>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800">Regla del 1%</h3>
+                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Ahorro</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleTerm('regla-1')" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="content-regla-1" class="hidden">
+                    <p class="text-gray-700 mb-4">
+                        Es <strong>subir tu porcentaje de ahorro 1% cada trimestre</strong>. De forma gradual y sin dolor.
+                    </p>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">📊 Ejemplo:</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between p-2 bg-white rounded">
+                                <span>Enero-Marzo:</span>
+                                <span class="font-medium">10% de ahorro</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-white rounded">
+                                <span>Abril-Junio:</span>
+                                <span class="font-medium">11% de ahorro</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-white rounded">
+                                <span>Julio-Sept:</span>
+                                <span class="font-medium">12% de ahorro</span>
+                            </div>
+                            <div class="flex justify-between p-2 bg-white rounded">
+                                <span>Oct-Dic:</span>
+                                <span class="font-medium">13% de ahorro</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2">✅ ¿Por qué funciona?</h4>
+                        <p class="text-sm text-gray-700">
+                            El aumento es tan pequeño que casi no lo notas, pero al final del año habrás incrementado tu ahorro 4% sin esfuerzo extra.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Espacio adicional -->
+        <div class="pb-4"></div>
+    </div>
+
+    <!-- Barra de Navegación -->
+    <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200">
+        <div class="flex items-center justify-around py-4">
+            <button class="flex flex-col items-center space-y-1 text-gray-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                <span class="text-xs font-medium">Inicio</span>
+            </button>
+            <button class="flex flex-col items-center space-y-1 text-gray-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+                <span class="text-xs font-medium">Metas</span>
+            </button>
+            <button class="flex flex-col items-center space-y-1 text-gray-400">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                </svg>
+                <span class="text-xs font-medium">Ahorro</span>
+            </button>
+            <button class="flex flex-col items-center space-y-1 text-blue-600">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <span class="text-xs font-medium">Aprender</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let currentCategory = 'all';
+        let expandedTerms = new Set();
+
+        // Función para buscar términos
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const terms = document.querySelectorAll('.term-card');
+
+            terms.forEach(term => {
+                const termText = term.textContent.toLowerCase();
+                const isVisible = termText.includes(searchTerm) &&
+                                (currentCategory === 'all' || term.dataset.category === currentCategory);
+
+                term.style.display = isVisible ? 'block' : 'none';
+                if (isVisible) {
+                    term.classList.add('fade-in');
+                }
+            });
+        });
+
+        // Función para filtrar por categoría
+        function filterByCategory(category) {
+            currentCategory = category;
+
+            // Actualizar botones de categoría
+            document.querySelectorAll('[id^="cat-"]').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+
+            document.getElementById('cat-' + category).classList.remove('bg-gray-200', 'text-gray-700');
+            document.getElementById('cat-' + category).classList.add('bg-blue-600', 'text-white');
+
+            // Filtrar términos
+            const terms = document.querySelectorAll('.term-card');
+            terms.forEach(term => {
+                const isVisible = category === 'all' || term.dataset.category === category;
+                term.style.display = isVisible ? 'block' : 'none';
+                if (isVisible) {
+                    term.classList.add('fade-in');
+                }
+            });
+        }
+
+        // Función para expandir/contraer términos
+        function toggleTerm(termId) {
+            const content = document.getElementById('content-' + termId);
+            const button = event.target.closest('button');
+            const isExpanded = !content.classList.contains('hidden');
+
+            if (isExpanded) {
+                content.classList.add('hidden');
+                button.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                `;
+                expandedTerms.delete(termId);
+            } else {
+                content.classList.remove('hidden');
+                button.innerHTML = `
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/>
+                    </svg>
+                `;
+                expandedTerms.add(termId);
+            }
+        }
+
+        // Función para volver atrás (simulado)
+        function goBack() {
+            window.history.back();
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar todos los términos al inicio
+            filterByCategory('all');
+        });
+    </script>
+</body>
+</html>

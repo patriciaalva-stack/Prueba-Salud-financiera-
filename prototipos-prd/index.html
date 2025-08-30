@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super App Financiera - MVP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .step-active {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .step-completed {
+            background: #10b981;
+            color: white;
+        }
+
+        .step-inactive {
+            background: #e5e7eb;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .gradient-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+        }
+
+        .gradient-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .gradient-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Contenedor Principal -->
+    <div id="app" class="min-h-screen">
+        <!-- Paso 1: Bienvenida -->
+        <div id="welcome-step" class="step-content">
+            <div class="max-w-md mx-auto px-4 py-8">
+                <!-- Header con Progreso -->
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full step-active"></div>
+                            <div class="w-3 h-3 rounded-full step-inactive"></div>
+                            <div class="w-3 h-3 rounded-full step-inactive"></div>
+                            <div class="w-3 h-3 rounded-full step-inactive"></div>
+                            <div class="w-3 h-3 rounded-full step-inactive"></div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 20%"></div>
+                    </div>
+                    <p class="text-center text-sm text-gray-600">Paso 1 de 5</p>
+                </div>
+
+                <!-- Contenido -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 text-center fade-in">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-2xl">💰</span>
+                    </div>
+
+                    <h1 class="text-2xl font-bold text-gray-800 mb-4">
+                        ¡Bienvenido a tu Super App Financiera!
+                    </h1>
+
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        La app que <strong>ahorra primero</strong> para que tú ganes después.
+                        Crea hábitos automáticos y construye tu futuro financiero de forma simple.
+                    </p>
+
+                    <div class="bg-blue-50 rounded-xl p-4 mb-6">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-3">🎯</span>
+                            <span class="font-semibold text-gray-800">Tu primera meta: Fondo de Emergencia</span>
+                        </div>
+                        <p class="text-sm text-gray-600">
+                            3-6 meses de gastos protegidos automáticamente
+                        </p>
+                    </div>
+
+                    <button onclick="nextStep()" class="w-full gradient-primary text-white py-4 rounded-xl font-semibold text-lg shadow-lg card-hover">
+                        Comenzar mi viaje financiero 🚀
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 2: KYC Básico -->
+        <div id="kyc-step" class="step-content hidden">
+            <div class="max-w-md mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-active"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 40%"></div>
+                    </div>
+                    <p class="text-center text-sm text-gray-600">Paso 2 de 5</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 fade-in">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">Verificación de Identidad</h2>
+                    <p class="text-gray-600 mb-6">Solo tomará 1 minuto. Tus datos están 100% seguros.</p>
+
+                    <form id="kyc-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nombre completo</label>
+                            <input type="text" id="fullName" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Juan Pérez García">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">CURP</label>
+                            <input type="text" id="curp" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="PEGJ900101HDFRRR01" maxlength="18">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Fecha de nacimiento</label>
+                            <input type="date" id="birthDate" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="bg-blue-50 rounded-xl p-4">
+                            <div class="flex items-start">
+                                <input type="checkbox" id="consent" class="mt-1 mr-3">
+                                <label for="consent" class="text-sm text-gray-700">
+                                    Acepto el tratamiento de mis datos personales conforme a la Ley Federal de Protección de Datos.
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+
+                    <button onclick="validateKYC()" class="w-full mt-6 gradient-primary text-white py-4 rounded-xl font-semibold shadow-lg card-hover">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 3: Evaluación de Perfil -->
+        <div id="profile-step" class="step-content hidden">
+            <div class="max-w-md mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-active"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <p class="text-center text-sm text-gray-600">Paso 3 de 5</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 fade-in">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">Conozcámonos mejor</h2>
+                    <p class="text-gray-600 mb-6">3 preguntas rápidas para personalizar tu experiencia</p>
+
+                    <div id="question-1" class="question">
+                        <h3 class="font-semibold text-gray-800 mb-3">¿Cuál es tu ingreso mensual aproximado?</h3>
+                        <div class="space-y-2">
+                            <button onclick="selectAnswer(1, 'under15k')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Menos de $15,000 MXN
+                            </button>
+                            <button onclick="selectAnswer(1, '15to30k')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                $15,000 - $30,000 MXN
+                            </button>
+                            <button onclick="selectAnswer(1, '30to50k')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                $30,000 - $50,000 MXN
+                            </button>
+                            <button onclick="selectAnswer(1, 'over50k')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Más de $50,000 MXN
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="question-2" class="question hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">¿Con qué frecuencia recibes ingresos?</h3>
+                        <div class="space-y-2">
+                            <button onclick="selectAnswer(2, 'weekly')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Semanal
+                            </button>
+                            <button onclick="selectAnswer(2, 'biweekly')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Quincenal
+                            </button>
+                            <button onclick="selectAnswer(2, 'monthly')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Mensual
+                            </button>
+                            <button onclick="selectAnswer(2, 'variable')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                Variable (freelance, comisiones)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="question-3" class="question hidden">
+                        <h3 class="font-semibold text-gray-800 mb-3">¿Cuál es tu objetivo principal?</h3>
+                        <div class="space-y-2">
+                            <button onclick="selectAnswer(3, 'emergency')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                💰 Construir fondo de emergencia
+                            </button>
+                            <button onclick="selectAnswer(3, 'home')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                🏠 Comprar casa
+                            </button>
+                            <button onclick="selectAnswer(3, 'retirement')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                👴 Prepararme para el retiro
+                            </button>
+                            <button onclick="selectAnswer(3, 'education')" class="w-full text-left p-3 border border-gray-300 rounded-xl hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                🎓 Educar a mis hijos
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 4: Primera Meta -->
+        <div id="goal-step" class="step-content hidden">
+            <div class="max-w-md mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-active"></div>
+                        <div class="w-3 h-3 rounded-full step-inactive"></div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <p class="text-center text-sm text-gray-600">Paso 4 de 5</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 fade-in">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">Tu Fondo de Emergencia</h2>
+                    <p class="text-gray-600 mb-6">La base de tu seguridad financiera</p>
+
+                    <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-xl p-4 mb-6 text-white">
+                        <div class="flex items-center mb-2">
+                            <span class="text-2xl mr-2">🛡️</span>
+                            <span class="font-semibold">¿Por qué es importante?</span>
+                        </div>
+                        <p class="text-sm opacity-90">
+                            3-6 meses de gastos te protegen de imprevistos como pérdida de empleo, gastos médicos o reparaciones.
+                        </p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">¿Cuántos meses quieres cubrir?</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="selectMonths(3)" id="months-3" class="p-3 border border-gray-300 rounded-xl text-center hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="font-semibold">3 meses</div>
+                                <div class="text-sm text-gray-600">Conservador</div>
+                            </button>
+                            <button onclick="selectMonths(4)" id="months-4" class="p-3 border border-gray-300 rounded-xl text-center hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="font-semibold">4 meses</div>
+                                <div class="text-sm text-gray-600">Recomendado</div>
+                            </button>
+                            <button onclick="selectMonths(6)" id="months-6" class="p-3 border border-gray-300 rounded-xl text-center hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="font-semibold">6 meses</div>
+                                <div class="text-sm text-gray-600">Completo</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="goal-summary" class="bg-gray-50 rounded-xl p-4 mb-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-2">Tu meta calculada:</h3>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Monto objetivo:</span>
+                            <span id="goal-amount" class="font-bold text-lg text-green-600">$0</span>
+                        </div>
+                        <div class="flex justify-between items-center mt-1">
+                            <span class="text-gray-600">Aporte mensual:</span>
+                            <span id="monthly-contribution" class="font-semibold text-blue-600">$0</span>
+                        </div>
+                    </div>
+
+                    <button onclick="createGoal()" id="create-goal-btn" class="w-full gradient-primary text-white py-4 rounded-xl font-semibold shadow-lg card-hover disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        Crear mi meta 🎯
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 5: Regla de Ahorro -->
+        <div id="rule-step" class="step-content hidden">
+            <div class="max-w-md mx-auto px-4 py-8">
+                <!-- Header -->
+                <div class="mb-8">
+                    <div class="flex justify-center mb-4">
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-completed"></div>
+                        <div class="w-3 h-3 rounded-full step-active"></div>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mb-2">
+                        <div class="progress-bar bg-blue-600 h-2 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <p class="text-center text-sm text-gray-600">Paso 5 de 5</p>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-6 fade-in">
+                    <h2 class="text-xl font-bold text-gray-800 mb-2">Regla de Ahorro Automático</h2>
+                    <p class="text-gray-600 mb-6">¡Esto es magia! El ahorro sucede automáticamente</p>
+
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-6">
+                        <div class="flex items-start">
+                            <span class="text-xl mr-3">✨</span>
+                            <div>
+                                <h3 class="font-semibold text-gray-800 mb-1">Ahorra Primero, Gasta Después</h3>
+                                <p class="text-sm text-gray-700">
+                                    Separamos el dinero al momento de recibirlo, antes de que puedas gastarlo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-3">¿Cómo quieres ahorrar?</label>
+                        <div class="space-y-3">
+                            <button onclick="selectRuleType('percentage')" id="rule-percentage" class="w-full p-4 border border-gray-300 rounded-xl text-left hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-gray-800">Porcentaje de ingresos</div>
+                                        <div class="text-sm text-gray-600">Ej: 10% de cada nómina</div>
+                                    </div>
+                                    <span class="text-blue-600 font-semibold">Recomendado</span>
+                                </div>
+                            </button>
+
+                            <button onclick="selectRuleType('fixed')" id="rule-fixed" class="w-full p-4 border border-gray-300 rounded-xl text-left hover:bg-blue-50 hover:border-blue-300 transition-colors">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-semibold text-gray-800">Monto fijo</div>
+                                        <div class="text-sm text-gray-600">Ej: $1,000 cada mes</div>
+                                    </div>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="rule-config" class="mb-6 hidden">
+                        <div id="percentage-config">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">¿Qué porcentaje?</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="range" id="percentage-slider" min="5" max="25" value="10" class="flex-1">
+                                <span id="percentage-value" class="font-semibold text-blue-600 w-12 text-center">10%</span>
+                            </div>
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>5%</span>
+                                <span>25%</span>
+                            </div>
+                        </div>
+
+                        <div id="fixed-config" class="hidden">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">¿Cuánto cada mes?</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3 text-gray-500">$</span>
+                                <input type="number" id="fixed-amount" class="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="1000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="rule-preview" class="bg-blue-50 rounded-xl p-4 mb-6 hidden">
+                        <h3 class="font-semibold text-gray-800 mb-2">Vista previa:</h3>
+                        <div class="text-sm text-gray-700">
+                            <span id="rule-preview-text">Separarás 10% de cada ingreso automáticamente</span>
+                        </div>
+                    </div>
+
+                    <button onclick="activateRule()" id="activate-rule-btn" class="w-full gradient-success text-white py-4 rounded-xl font-semibold shadow-lg card-hover disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        ¡Activar ahorro automático! 🚀
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso Final: Dashboard -->
+        <div id="dashboard-step" class="step-content hidden">
+            <div class="max-w-md mx-auto bg-gray-50 min-h-screen">
+                <!-- Header -->
+                <div class="bg-white shadow-sm px-4 py-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                                <span class="text-white font-bold text-sm">SF</span>
+                            </div>
+                            <span class="font-semibold text-gray-800">Super App Financiera</span>
+                        </div>
+                        <button class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Contenido Principal -->
+                <div class="px-4 py-6">
+                    <!-- Saludo y Felicidades -->
+                    <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-2xl p-6 text-white mb-6">
+                        <h1 class="text-2xl font-bold mb-2">¡Felicitaciones! 🎉</h1>
+                        <p class="text-green-100 mb-4">Tu viaje financiero ha comenzado</p>
+                        <div class="bg-white bg-opacity-20 rounded-xl p-3">
+                            <p class="text-sm">Primer depósito automático en <strong>48 horas</strong></p>
+                        </div>
+                    </div>
+
+                    <!-- Saldo Principal -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800">Mi Dinero Hoy</h2>
+                            <button class="text-blue-600 text-sm font-medium">Ver detalles</button>
+                        </div>
+
+                        <div class="text-center mb-6">
+                            <p class="text-gray-600 text-sm mb-1">Saldo disponible</p>
+                            <p class="text-3xl font-bold text-gray-800">$2,450.00</p>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-blue-600">🛡️</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-gray-800">Fondo de Emergencia</p>
+                                        <p class="text-sm text-gray-600">Próximo aporte: $833 (mañana)</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-semibold text-gray-800">$1,250</p>
+                                    <p class="text-xs text-green-600">+8.3%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tareas de Hoy -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Tus primeras tareas</h2>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center p-3 border border-gray-200 rounded-xl">
+                                <input type="checkbox" id="task1" class="mr-3">
+                                <label for="task1" class="flex-1">
+                                    <p class="font-medium text-gray-800">Revisa tus gastos de ayer</p>
+                                    <p class="text-sm text-gray-600">Toma 2 minutos</p>
+                                </label>
+                                <span class="text-yellow-500">⭐ +10 pts</span>
+                            </div>
+
+                            <div class="flex items-center p-3 border border-gray-200 rounded-xl">
+                                <input type="checkbox" id="task2" class="mr-3">
+                                <label for="task2" class="flex-1">
+                                    <p class="font-medium text-gray-800">Configura recordatorios de ahorro</p>
+                                    <p class="text-sm text-gray-600">Activar notificaciones</p>
+                                </label>
+                                <span class="text-yellow-500">⭐ +15 pts</span>
+                            </div>
+
+                            <div class="flex items-center p-3 border border-gray-200 rounded-xl">
+                                <input type="checkbox" id="task3" class="mr-3">
+                                <label for="task3" class="flex-1">
+                                    <p class="font-medium text-gray-800">Comparte con un amigo</p>
+                                    <p class="text-sm text-gray-600">Invita a alguien más</p>
+                                </label>
+                                <span class="text-yellow-500">⭐ +25 pts</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 p-3 bg-blue-50 rounded-xl">
+                            <p class="text-sm text-blue-800">
+                                <strong>💡 Tip:</strong> Completar estas tareas te dará 50 puntos y desbloqueará tu primer badge "Starter Financiero"
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Próximos Pasos -->
+                    <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-4">Próximos pasos</h2>
+
+                        <div class="space-y-3">
+                            <button class="w-full flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-purple-600">📊</span>
+                                    </div>
+                                    <div class="text-left">
+                                        <p class="font-medium text-gray-800">Diversificar inversiones</p>
+                                        <p class="text-sm text-gray-600">Cuando tengas $5K+</p>
+                                    </div>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+
+                            <button class="w-full flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                        <span class="text-green-600">🎓</span>
+                                    </div>
+                                    <div class="text-left">
+                                        <p class="font-medium text-gray-800">Aprender conceptos básicos</p>
+                                        <p class="text-sm text-gray-600">Glosario interactivo</p>
+                                    </div>
+                                </div>
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra de Navegación -->
+                <div class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200">
+                    <div class="flex items-center justify-around py-4">
+                        <button class="flex flex-col items-center space-y-1 text-blue-600">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                            </svg>
+                            <span class="text-xs font-medium">Inicio</span>
+                        </button>
+                        <button class="flex flex-col items-center space-y-1 text-gray-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                            <span class="text-xs font-medium">Metas</span>
+                        </button>
+                        <button class="flex flex-col items-center space-y-1 text-gray-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"/>
+                            </svg>
+                            <span class="text-xs font-medium">Ahorro</span>
+                        </button>
+                        <button class="flex flex-col items-center space-y-1 text-gray-400">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                            <span class="text-xs font-medium">Perfil</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentStep = 1;
+        let userProfile = {};
+        let selectedMonths = 4;
+        let monthlyIncome = 25000; // Default basado en perfil
+        let selectedRuleType = 'percentage';
+        let selectedPercentage = 10;
+        let fixedAmount = 1000;
+
+        // Funciones de navegación
+        function nextStep() {
+            const currentStepElement = document.getElementById(getStepId(currentStep));
+            const nextStepElement = document.getElementById(getStepId(currentStep + 1));
+
+            if (currentStepElement && nextStepElement) {
+                currentStepElement.classList.add('hidden');
+                nextStepElement.classList.remove('hidden');
+                currentStep++;
+
+                // Actualizar progreso visual
+                updateProgress();
+            }
+        }
+
+        function getStepId(step) {
+            const stepIds = {
+                1: 'welcome-step',
+                2: 'kyc-step',
+                3: 'profile-step',
+                4: 'goal-step',
+                5: 'rule-step',
+                6: 'dashboard-step'
+            };
+            return stepIds[step];
+        }
+
+        function updateProgress() {
+            const progressBar = document.querySelector('.progress-bar');
+            const progressPercentage = (currentStep / 5) * 100;
+            progressBar.style.width = progressPercentage + '%';
+        }
+
+        // Paso 2: Validación KYC
+        function validateKYC() {
+            const fullName = document.getElementById('fullName').value;
+            const curp = document.getElementById('curp').value;
+            const birthDate = document.getElementById('birthDate').value;
+            const consent = document.getElementById('consent').checked;
+
+            if (!fullName || !curp || !birthDate) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+
+            if (curp.length !== 18) {
+                alert('El CURP debe tener 18 caracteres');
+                return;
+            }
+
+            if (!consent) {
+                alert('Debes aceptar el tratamiento de datos');
+                return;
+            }
+
+            userProfile = {
+                ...userProfile,
+                fullName,
+                curp,
+                birthDate
+            };
+
+            nextStep();
+        }
+
+        // Paso 3: Evaluación de perfil
+        let currentQuestion = 1;
+
+        function selectAnswer(question, answer) {
+            userProfile['question' + question] = answer;
+
+            // Calcular ingreso aproximado basado en respuesta
+            if (question === 1) {
+                switch(answer) {
+                    case 'under15k': monthlyIncome = 12000; break;
+                    case '15to30k': monthlyIncome = 22500; break;
+                    case '30to50k': monthlyIncome = 40000; break;
+                    case 'over50k': monthlyIncome = 60000; break;
+                }
+            }
+
+            // Avanzar a siguiente pregunta
+            if (question < 3) {
+                document.getElementById('question-' + question).classList.add('hidden');
+                document.getElementById('question-' + (question + 1)).classList.remove('hidden');
+                currentQuestion++;
+            } else {
+                // Finalizar preguntas y continuar
+                nextStep();
+            }
+        }
+
+        // Paso 4: Meta
+        function selectMonths(months) {
+            selectedMonths = months;
+
+            // Remover selección anterior
+            document.getElementById('months-3').classList.remove('border-blue-500', 'bg-blue-50');
+            document.getElementById('months-4').classList.remove('border-blue-500', 'bg-blue-50');
+            document.getElementById('months-6').classList.remove('border-blue-500', 'bg-blue-50');
+
+            // Agregar selección actual
+            document.getElementById('months-' + months).classList.add('border-blue-500', 'bg-blue-50');
+
+            // Calcular y mostrar meta
+            calculateGoal();
+        }
+
+        function calculateGoal() {
+            const monthlyExpenses = monthlyIncome * 0.7; // Asumir 70% de gastos
+            const goalAmount = monthlyExpenses * selectedMonths;
+            const monthlyContribution = goalAmount / 12; // 12 meses para lograr la meta
+
+            document.getElementById('goal-amount').textContent = '$' + goalAmount.toLocaleString();
+            document.getElementById('monthly-contribution').textContent = '$' + Math.round(monthlyContribution).toLocaleString();
+            document.getElementById('goal-summary').classList.remove('hidden');
+            document.getElementById('create-goal-btn').disabled = false;
+        }
+
+        function createGoal() {
+            userProfile = {
+                ...userProfile,
+                goalType: 'emergency',
+                goalMonths: selectedMonths,
+                goalAmount: monthlyIncome * 0.7 * selectedMonths,
+                monthlyContribution: Math.round((monthlyIncome * 0.7 * selectedMonths) / 12)
+            };
+
+            nextStep();
+        }
+
+        // Paso 5: Regla de ahorro
+        function selectRuleType(type) {
+            selectedRuleType = type;
+
+            // Resetear selecciones
+            document.getElementById('rule-percentage').classList.remove('border-blue-500', 'bg-blue-50');
+            document.getElementById('rule-fixed').classList.remove('border-blue-500', 'bg-blue-50');
+
+            // Aplicar selección
+            document.getElementById('rule-' + type).classList.add('border-blue-500', 'bg-blue-50');
+
+            // Mostrar configuración correspondiente
+            document.getElementById('percentage-config').classList.add('hidden');
+            document.getElementById('fixed-config').classList.add('hidden');
+
+            if (type === 'percentage') {
+                document.getElementById('percentage-config').classList.remove('hidden');
+            } else {
+                document.getElementById('fixed-config').classList.remove('hidden');
+            }
+
+            document.getElementById('rule-config').classList.remove('hidden');
+            updateRulePreview();
+            document.getElementById('rule-preview').classList.remove('hidden');
+            document.getElementById('activate-rule-btn').disabled = false;
+        }
+
+        // Slider de porcentaje
+        document.getElementById('percentage-slider').addEventListener('input', function() {
+            selectedPercentage = this.value;
+            document.getElementById('percentage-value').textContent = selectedPercentage + '%';
+            updateRulePreview();
+        });
+
+        // Input de monto fijo
+        document.getElementById('fixed-amount').addEventListener('input', function() {
+            fixedAmount = parseFloat(this.value) || 0;
+            updateRulePreview();
+        });
+
+        function updateRulePreview() {
+            let previewText = '';
+
+            if (selectedRuleType === 'percentage') {
+                const monthlySavings = Math.round(monthlyIncome * (selectedPercentage / 100));
+                previewText = `Separarás ${selectedPercentage}% de cada ingreso automáticamente (aprox. $${monthlySavings.toLocaleString()} mensuales)`;
+            } else {
+                previewText = `Separarás $${fixedAmount.toLocaleString()} de cada ingreso automáticamente`;
+            }
+
+            document.getElementById('rule-preview-text').textContent = previewText;
+        }
+
+        function activateRule() {
+            userProfile = {
+                ...userProfile,
+                ruleType: selectedRuleType,
+                ruleValue: selectedRuleType === 'percentage' ? selectedPercentage : fixedAmount
+            };
+
+            nextStep();
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar valores por defecto
+            selectMonths(4);
+            selectRuleType('percentage');
+            updateRulePreview();
+        });
+    </script>
+</body>
+</html>
