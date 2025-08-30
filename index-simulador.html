@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Créditos - Índice de Prototipos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .prototypes-container {
+            padding: 30px 20px;
+        }
+
+        .prototype-card {
+            background: #f8f9fa;
+            border: 2px solid #e1e5e9;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .prototype-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .prototype-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .prototype-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .prototype-icon {
+            font-size: 32px;
+            margin-right: 15px;
+        }
+
+        .prototype-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .prototype-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .prototype-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .prototype-features li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .prototype-features li:before {
+            content: "✓ ";
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .prototype-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .prototype-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .footer p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .github-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .github-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            body {
+                padding: 0;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .prototype-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Simulador de Créditos</h1>
+            <p>Explora nuestros 3 prototipos funcionales diseñados con enfoque mobile-first para ofrecer la mejor experiencia en simulación de créditos</p>
+        </div>
+
+        <div class="prototypes-container">
+            <!-- Prototipo 1: Básico -->
+            <div class="prototype-card" onclick="window.open('prototipo-1-basico.html', '_blank')">
+                <div class="prototype-header">
+                    <div class="prototype-icon">💰</div>
+                    <div class="prototype-title">Prototipo Básico</div>
+                </div>
+                <div class="prototype-description">
+                    Simulador simple y efectivo para cálculos rápidos de créditos con cuotas mensuales fijas.
+                </div>
+                <ul class="prototype-features">
+                    <li>Cálculo de cuota mensual</li>
+                    <li>Plazos de 12 a 60 meses</li>
+                    <li>Tasa de interés personalizable</li>
+                    <li>Resultados en tiempo real</li>
+                    <li>Diseño limpio y minimalista</li>
+                </ul>
+                <a href="prototipo-1-basico.html" class="prototype-btn" target="_blank">
+                    🧮 Probar Prototipo
+                </a>
+            </div>
+
+            <!-- Prototipo 2: Avanzado -->
+            <div class="prototype-card" onclick="window.open('prototipo-2-avanzado.html', '_blank')">
+                <div class="prototype-header">
+                    <div class="prototype-icon">🚀</div>
+                    <div class="prototype-title">Prototipo Avanzado</div>
+                </div>
+                <div class="prototype-description">
+                    Simulador completo con múltiples opciones de pago: cuotas mensuales, pagos diarios y porcentaje de ventas.
+                </div>
+                <ul class="prototype-features">
+                    <li>3 métodos de pago diferentes</li>
+                    <li>Cálculos avanzados para cada modalidad</li>
+                    <li>Estimación de duración del préstamo</li>
+                    <li>Información contextual detallada</li>
+                    <li>Comparación entre opciones</li>
+                </ul>
+                <a href="prototipo-2-avanzado.html" class="prototype-btn" target="_blank">
+                    🚀 Probar Prototipo
+                </a>
+            </div>
+
+            <!-- Prototipo 3: Agente Virtual -->
+            <div class="prototype-card" onclick="window.open('prototipo-3-agente-virtual.html', '_blank')">
+                <div class="prototype-header">
+                    <div class="prototype-icon">🤖</div>
+                    <div class="prototype-title">Prototipo con Agente Virtual</div>
+                </div>
+                <div class="prototype-description">
+                    Experiencia conversacional con chatbot inteligente que guía paso a paso la simulación de créditos.
+                </div>
+                <ul class="prototype-features">
+                    <li>Chatbot interactivo en español</li>
+                    <li>Botones de acción rápida</li>
+                    <li>Extracción inteligente de datos</li>
+                    <li>Simulación conversacional</li>
+                    <li>Indicador de escritura realista</li>
+                </ul>
+                <a href="prototipo-3-agente-virtual.html" class="prototype-btn" target="_blank">
+                    🤖 Probar Prototipo
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>
+                📚 <strong>Documentación completa:</strong> 
+                <a href="README-simulador-creditos.md" class="github-link" target="_blank">README.md</a>
+            </p>
+            <p style="margin-top: 10px; font-size: 12px; opacity: 0.8;">
+                Todos los prototipos son completamente funcionales y no requieren dependencias externas
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Añadir efecto de click en las tarjetas
+        document.querySelectorAll('.prototype-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Efecto visual de click
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = 'translateY(-5px)';
+                }, 150);
+            });
+        });
+
+        // Prevenir doble click en botones
+        document.querySelectorAll('.prototype-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>

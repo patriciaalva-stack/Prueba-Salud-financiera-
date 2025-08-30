@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Créditos - Agente Virtual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .message.user .message-content {
+            background: #4caf50;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e1e5e9;
+            border-bottom-left-radius: 4px;
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin: 0 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .message.user .avatar {
+            background: #4caf50;
+            color: white;
+            order: 2;
+        }
+
+        .message.bot .avatar {
+            background: #2196f3;
+            color: white;
+        }
+
+        .input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e1e5e9;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: #4caf50;
+        }
+
+        .send-btn {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #2e7d32;
+            transform: translateY(-1px);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .quick-btn {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 1px solid #2196f3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: #2196f3;
+            color: white;
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: white;
+            border: 1px solid #e1e5e9;
+            border-radius: 18px;
+            border-bottom-left-radius: 4px;
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+
+        .typing-indicator.show {
+            display: flex;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .loan-simulation {
+            background: #e8f5e8;
+            border: 1px solid #4caf50;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .loan-simulation.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .simulation-result {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+            font-weight: 700;
+            color: #4caf50;
+            font-size: 16px;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Agente Virtual</h1>
+            <p>Simula tu crédito con nuestro asistente inteligente</p>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot">
+                <div class="avatar">🤖</div>
+                <div class="message-content">
+                    ¡Hola! Soy tu asistente virtual para simular créditos. 
+                    ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre:
+                    <br><br>
+                    • Montos de préstamo<br>
+                    • Plazos de pago<br>
+                    • Tasas de interés<br>
+                    • Opciones de financiamiento
+                </div>
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="avatar">🤖</div>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="input-group">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Escribe tu mensaje aquí..." onkeypress="handleKeyPress(event)">
+                <button class="send-btn" id="sendBtn" onclick="sendMessage()">Enviar</button>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="quick-btn" onclick="quickAction('Quiero un préstamo de $5000')">$5,000</button>
+                <button class="quick-btn" onclick="quickAction('¿Cuánto pagaría en 24 meses?')">24 meses</button>
+                <button class="quick-btn" onclick="quickAction('¿Cuál es la tasa de interés?')">Tasa interés</button>
+                <button class="quick-btn" onclick="quickAction('Simula un crédito')">Simular</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isTyping = false;
+        let currentLoanData = {};
+
+        const botResponses = {
+            'prestamo': 'Perfecto, ¿qué monto necesitas? Puedo ayudarte a calcular cuotas, plazos e intereses.',
+            'monto': 'Excelente, ¿en cuántos meses te gustaría pagarlo? Las opciones típicas son 12, 24, 36, 48 o 60 meses.',
+            'meses': 'Perfecto, ahora necesito saber la tasa de interés. ¿Tienes alguna preferencia o quieres que use una tasa estándar del 15% anual?',
+            'interes': 'Genial, ahora puedo simular tu crédito. ¿Quieres que proceda con el cálculo?',
+            'simular': '¡Perfecto! Voy a simular tu crédito con los datos que me proporcionaste.',
+            'default': 'Entiendo tu consulta. ¿Podrías ser más específico sobre qué necesitas saber del crédito?'
+        };
+
+        const quickActions = {
+            'Quiero un préstamo de $5000': '¡Perfecto! Un préstamo de $5,000. ¿En cuántos meses te gustaría pagarlo?',
+            '¿Cuánto pagaría en 24 meses?': 'Para calcular tu cuota mensual en 24 meses, necesito saber el monto del préstamo y la tasa de interés. ¿Cuánto dinero necesitas?',
+            '¿Cuál es la tasa de interés?': 'Las tasas de interés varían según el tipo de crédito. Para préstamos personales, las tasas típicas van del 12% al 25% anual. ¿Qué monto necesitas?',
+            'Simula un crédito': '¡Claro! Para simular tu crédito necesito algunos datos: monto del préstamo, plazo en meses y tasa de interés. ¿Empezamos?'
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            
+            if (message && !isTyping) {
+                addMessage(message, 'user');
+                input.value = '';
+                processUserMessage(message);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function quickAction(text) {
+            document.getElementById('chatInput').value = text;
+            sendMessage();
+        }
+
+        function addMessage(text, sender) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.textContent = sender === 'user' ? '👤' : '🤖';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = text;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            chatContainer.appendChild(messageDiv);
+            
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function showTyping() {
+            isTyping = true;
+            document.getElementById('typingIndicator').classList.add('show');
+            document.getElementById('chatContainer').scrollTop = document.getElementById('chatContainer').scrollHeight;
+        }
+
+        function hideTyping() {
+            isTyping = false;
+            document.getElementById('typingIndicator').classList.remove('show');
+        }
+
+        function processUserMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // Extraer información del mensaje
+            extractLoanInfo(message);
+            
+            // Determinar respuesta del bot
+            let response = getBotResponse(lowerMessage);
+            
+            // Si hay datos suficientes, ofrecer simulación
+            if (Object.keys(currentLoanData).length >= 2) {
+                response += '\n\n¿Quieres que simule tu crédito con estos datos?';
+            }
+            
+            showTyping();
+            
+            setTimeout(() => {
+                hideTyping();
+                addMessage(response, 'bot');
+                
+                // Si hay datos completos, mostrar simulación
+                if (Object.keys(currentLoanData).length >= 3) {
+                    setTimeout(() => {
+                        showLoanSimulation();
+                    }, 1000);
+                }
+            }, 1500);
+        }
+
+        function extractLoanInfo(message) {
+            const amountMatch = message.match(/\$?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)/);
+            const monthsMatch = message.match(/(\d{1,2})\s*meses?/);
+            const interestMatch = message.match(/(\d{1,2}(?:\.\d{1,2})?)\s*%/);
+            
+            if (amountMatch) {
+                currentLoanData.amount = parseFloat(amountMatch[1].replace(/,/g, ''));
+            }
+            if (monthsMatch) {
+                currentLoanData.months = parseInt(monthsMatch[1]);
+            }
+            if (interestMatch) {
+                currentLoanData.interest = parseFloat(interestMatch[1]);
+            }
+        }
+
+        function getBotResponse(message) {
+            if (message.includes('prestamo') || message.includes('préstamo')) {
+                return botResponses.prestamo;
+            } else if (message.includes('monto') || message.includes('dinero')) {
+                return botResponses.monto;
+            } else if (message.includes('meses') || message.includes('plazo')) {
+                return botResponses.meses;
+            } else if (message.includes('interes') || message.includes('tasa')) {
+                return botResponses.interes;
+            } else if (message.includes('simular') || message.includes('calcular')) {
+                return botResponses.simular;
+            } else {
+                return botResponses.default;
+            }
+        }
+
+        function showLoanSimulation() {
+            if (!currentLoanData.amount || !currentLoanData.months || !currentLoanData.interest) {
+                // Usar valores por defecto si faltan datos
+                currentLoanData.amount = currentLoanData.amount || 5000;
+                currentLoanData.months = currentLoanData.months || 24;
+                currentLoanData.interest = currentLoanData.interest || 15;
+            }
+
+            const monthlyInterest = currentLoanData.interest / 12 / 100;
+            const monthlyPayment = currentLoanData.amount * (monthlyInterest * Math.pow(1 + monthlyInterest, currentLoanData.months)) / 
+                                 (Math.pow(1 + monthlyInterest, currentLoanData.months) - 1);
+            const totalPayment = monthlyPayment * currentLoanData.months;
+            const totalInterest = totalPayment - currentLoanData.amount;
+
+            const simulationHtml = `
+                <div class="loan-simulation show">
+                    <h3>📊 Simulación de tu Crédito</h3>
+                    <div class="simulation-result">
+                        <div class="result-row">
+                            <span>Monto del préstamo:</span>
+                            <span>$${currentLoanData.amount.toLocaleString()}</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Plazo:</span>
+                            <span>${currentLoanData.months} meses</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Tasa de interés:</span>
+                            <span>${currentLoanData.interest}% anual</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Cuota mensual:</span>
+                            <span>$${monthlyPayment.toFixed(2)}</span>
+                        </div>
+                        <div class="result-row">
+                            <span>Total a pagar:</span>
+                            <span>$${totalPayment.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const chatContainer = document.getElementById('chatContainer');
+            const simulationDiv = document.createElement('div');
+            simulationDiv.innerHTML = simulationHtml;
+            chatContainer.appendChild(simulationDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Inicializar chat
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('chatInput').focus();
+        });
+    </script>
+</body>
+</html>

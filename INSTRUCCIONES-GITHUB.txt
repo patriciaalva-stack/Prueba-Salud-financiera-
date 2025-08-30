@@ -1,0 +1,82 @@
+🚀 INSTRUCCIONES PARA SUBIR EL PROTOTIPO A GITHUB
+================================================
+
+¡Tu prototipo está listo! Aquí tienes 3 formas de compartirlo públicamente:
+
+┌─────────────────────────────────────────────────────────────┐
+│                  MÉTODO 1: MÁS FÁCIL                       │
+│                     (GitHub Gist)                          │
+└─────────────────────────────────────────────────────────────┘
+
+1. Abre https://gist.github.com/
+2. Crea una nueva cuenta si no tienes (es gratis)
+3. Copia y pega el contenido del archivo "github-index.html"
+4. Nómbralo: mercado-pago-prototype.html
+5. Agrega el archivo "README-github.md" como segundo archivo
+6. Marca "Create public gist"
+7. ¡Listo! Obtendrás una URL como: https://gist.github.com/[tu-usuario]/[id]
+
+Para ver el demo online:
+https://htmlpreview.github.io/?https://gist.githubusercontent.com/[tu-usuario]/[id]/raw/mercado-pago-prototype.html
+
+┌─────────────────────────────────────────────────────────────┐
+│               MÉTODO 2: PROFESIONAL                      │
+│                 (GitHub Repository)                      │
+└─────────────────────────────────────────────────────────────┘
+
+OPCION A - Automática (Requiere GitHub CLI):
+1. Instala GitHub CLI: brew install gh
+2. Ejecuta: gh auth login
+3. Ejecuta: ./subir-github.sh
+4. Sigue las instrucciones en pantalla
+
+OPCION B - Manual:
+1. Ve a https://github.com/new
+2. Nombre: mercado-pago-prototype
+3. Público: ✓
+4. NO marques "Add README" ni ".gitignore"
+5. Crea el repositorio
+6. En terminal ejecuta:
+   git remote add origin https://github.com/[tu-usuario]/mercado-pago-prototype.git
+   git push -u origin main
+
+7. Activa GitHub Pages:
+   - Settings → Pages
+   - Branch: main, Folder: /(root)
+   - Save
+
+URL final: https://[tu-usuario].github.io/mercado-pago-prototype/github-index.html
+
+┌─────────────────────────────────────────────────────────────┐
+│              MÉTODO 3: INSTANTÁNEO                        │
+│                 (HTML Preview)                           │
+└─────────────────────────────────────────────────────────────┘
+
+1. Abre el archivo "github-index.html" en tu navegador
+2. Copia la URL del navegador
+3. Ve a https://htmlpreview.github.io/
+4. Pega tu URL local
+5. ¡Obtienes una URL pública temporal!
+
+Ejemplo:
+https://htmlpreview.github.io/?file:///Users/spatricia/Prueba%201/github-index.html
+
+┌─────────────────────────────────────────────────────────────┐
+│                    ARCHIVOS LISTOS:                        │
+└─────────────────────────────────────────────────────────────┘
+
+✓ github-index.html      - Protótipo completo
+✓ README-github.md       - Documentación
+✓ subir-github.sh        - Script automatizado
+✓ crear-gist.sh         - Script para Gist
+✓ INSTRUCCIONES-GITHUB.txt - Este archivo
+
+┌─────────────────────────────────────────────────────────────┐
+│                 URLS DE EJEMPLO:                           │
+└─────────────────────────────────────────────────────────────┘
+
+• Gist: https://gist.github.com/usuario/1234567890
+• Demo: https://htmlpreview.github.io/?https://gist.githubusercontent.com/usuario/1234567890/raw/mercado-pago-prototype.html
+• Repo: https://usuario.github.io/mercado-pago-prototype/github-index.html
+
+¡Elige el método que más te convenga y comparte con tu equipo! 🎉

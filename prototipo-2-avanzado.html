@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Créditos - Prototipo Avanzado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .form-container {
+            padding: 30px 20px;
+        }
+
+        .payment-method-selector {
+            margin-bottom: 25px;
+        }
+
+        .method-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .method-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+
+        .method-tab.active {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .payment-option {
+            display: none;
+        }
+
+        .payment-option.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .results {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e1e5e9;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .result-value {
+            font-weight: 700;
+            color: #ff6b6b;
+            font-size: 18px;
+        }
+
+        .total-payment {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .total-payment .amount {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #1976d2;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            body {
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Simulador Avanzado</h1>
+            <p>Múltiples opciones de pago para tu crédito</p>
+        </div>
+
+        <div class="form-container">
+            <div class="input-group">
+                <label for="amount">Monto del préstamo ($)</label>
+                <input type="number" id="amount" placeholder="Ej: 10000" min="100" step="100">
+            </div>
+
+            <div class="input-group">
+                <label for="interest">Tasa de interés anual (%)</label>
+                <input type="number" id="interest" placeholder="Ej: 15" min="1" max="50" step="0.1" value="15">
+            </div>
+
+            <div class="payment-method-selector">
+                <label>Método de pago:</label>
+                <div class="method-tabs">
+                    <button class="method-tab active" onclick="switchMethod('installments')">📅 Cuotas</button>
+                    <button class="method-tab" onclick="switchMethod('daily')">📊 Días</button>
+                    <button class="method-tab" onclick="switchMethod('sales')">💼 Ventas</button>
+                </div>
+            </div>
+
+            <!-- Opción de Cuotas -->
+            <div class="payment-option active" id="installments-option">
+                <div class="input-group">
+                    <label for="term">Plazo en meses</label>
+                    <select id="term">
+                        <option value="12">12 meses</option>
+                        <option value="24">24 meses</option>
+                        <option value="36">36 meses</option>
+                        <option value="48">48 meses</option>
+                        <option value="60">60 meses</option>
+                    </select>
+                </div>
+                <div class="info-box">
+                    💡 Pago fijo mensual con amortización gradual del capital
+                </div>
+            </div>
+
+            <!-- Opción de Días -->
+            <div class="payment-option" id="daily-option">
+                <div class="input-group">
+                    <label for="dailyAmount">Pago diario fijo ($)</label>
+                    <input type="number" id="dailyAmount" placeholder="Ej: 50" min="10" step="10">
+                </div>
+                <div class="info-box">
+                    💡 Pago diario fijo hasta completar el préstamo + intereses
+                </div>
+            </div>
+
+            <!-- Opción de Ventas -->
+            <div class="payment-option" id="sales-option">
+                <div class="input-group">
+                    <label for="salesPercentage">Porcentaje de ventas (%)</label>
+                    <input type="number" id="salesPercentage" placeholder="Ej: 10" min="1" max="50" step="1" value="10">
+                </div>
+                <div class="input-group">
+                    <label for="monthlySales">Ventas mensuales estimadas ($)</label>
+                    <input type="number" id="monthlySales" placeholder="Ej: 5000" min="100" step="100">
+                </div>
+                <div class="info-box">
+                    💡 Pago variable basado en un porcentaje de tus ventas mensuales
+                </div>
+            </div>
+
+            <button class="calculate-btn" onclick="calculateAdvancedLoan()">
+                🧮 Calcular Crédito
+            </button>
+
+            <div class="results" id="results">
+                <div class="result-item">
+                    <span class="result-label">Pago por período:</span>
+                    <span class="result-value" id="periodPayment">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Duración estimada:</span>
+                    <span class="result-value" id="estimatedDuration">-</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Total a pagar:</span>
+                    <span class="result-value" id="totalPayment">$0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Intereses totales:</span>
+                    <span class="result-value" id="totalInterest">$0</span>
+                </div>
+                <div class="total-payment">
+                    <div>Pago total del crédito</div>
+                    <div class="amount" id="grandTotal">$0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentMethod = 'installments';
+
+        function switchMethod(method) {
+            currentMethod = method;
+            
+            // Actualizar tabs
+            document.querySelectorAll('.method-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Mostrar opción correspondiente
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.getElementById(method + '-option').classList.add('active');
+            
+            // Limpiar resultados
+            document.getElementById('results').classList.remove('show');
+        }
+
+        function calculateAdvancedLoan() {
+            const amount = parseFloat(document.getElementById('amount').value);
+            const annualInterest = parseFloat(document.getElementById('interest').value);
+
+            if (!amount || amount < 100) {
+                alert('Por favor ingresa un monto válido (mínimo $100)');
+                return;
+            }
+
+            if (!annualInterest) {
+                alert('Por favor ingresa la tasa de interés');
+                return;
+            }
+
+            const monthlyInterest = annualInterest / 12 / 100;
+            let periodPayment, estimatedDuration, totalPayment, totalInterest;
+
+            switch(currentMethod) {
+                case 'installments':
+                    const term = parseInt(document.getElementById('term').value);
+                    periodPayment = amount * (monthlyInterest * Math.pow(1 + monthlyInterest, term)) / 
+                                  (Math.pow(1 + monthlyInterest, term) - 1);
+                    estimatedDuration = term + ' meses';
+                    totalPayment = periodPayment * term;
+                    break;
+
+                case 'daily':
+                    const dailyAmount = parseFloat(document.getElementById('dailyAmount').value);
+                    if (!dailyAmount || dailyAmount < 10) {
+                        alert('Por favor ingresa un pago diario válido (mínimo $10)');
+                        return;
+                    }
+                    periodPayment = dailyAmount;
+                    const dailyInterest = annualInterest / 365 / 100;
+                    let remainingAmount = amount;
+                    let days = 0;
+                    
+                    while (remainingAmount > 0 && days < 3650) { // Máximo 10 años
+                        remainingAmount += remainingAmount * dailyInterest;
+                        remainingAmount -= dailyAmount;
+                        days++;
+                    }
+                    
+                    estimatedDuration = days + ' días';
+                    totalPayment = days * dailyAmount;
+                    break;
+
+                case 'sales':
+                    const salesPercentage = parseFloat(document.getElementById('salesPercentage').value);
+                    const monthlySales = parseFloat(document.getElementById('monthlySales').value);
+                    
+                    if (!salesPercentage || !monthlySales) {
+                        alert('Por favor completa todos los campos de ventas');
+                        return;
+                    }
+                    
+                    periodPayment = (monthlySales * salesPercentage / 100);
+                    let remaining = amount;
+                    let months = 0;
+                    
+                    while (remaining > 0 && months < 120) { // Máximo 10 años
+                        remaining += remaining * monthlyInterest;
+                        remaining -= periodPayment;
+                        months++;
+                    }
+                    
+                    estimatedDuration = months + ' meses';
+                    totalPayment = months * periodPayment;
+                    break;
+            }
+
+            totalInterest = totalPayment - amount;
+
+            // Mostrar resultados
+            document.getElementById('periodPayment').textContent = '$' + periodPayment.toFixed(2);
+            document.getElementById('estimatedDuration').textContent = estimatedDuration;
+            document.getElementById('totalPayment').textContent = '$' + totalPayment.toFixed(2);
+            document.getElementById('totalInterest').textContent = '$' + totalInterest.toFixed(2);
+            document.getElementById('grandTotal').textContent = '$' + totalPayment.toFixed(2);
+
+            // Mostrar sección de resultados
+            document.getElementById('results').classList.add('show');
+        }
+
+        // Calcular automáticamente al cambiar valores
+        document.getElementById('amount').addEventListener('input', function() {
+            if (this.value && document.getElementById('results').classList.contains('show')) {
+                calculateAdvancedLoan();
+            }
+        });
+
+        document.getElementById('interest').addEventListener('input', function() {
+            if (this.value && document.getElementById('amount').value && document.getElementById('results').classList.contains('show')) {
+                calculateAdvancedLoan();
+            }
+        });
+    </script>
+</body>
+</html>
