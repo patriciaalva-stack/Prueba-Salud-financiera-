@@ -1,717 +1,163 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Pago - Crédito</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Super App Financiera - MVP</title>
+    <meta name="description" content="Super App Financiera para Latinoamérica - Prototipos funcionales del MVP">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --white: #FFFFFF;
-            --black: #000000;
-            --gray-dark: #222222;
-            --gray-light: #E5E5E5;
-            --border-radius: 16px;
-            --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--white);
-            color: var(--black);
-            line-height: 1.5;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
 
-        .app {
-            max-width: 375px;
-            margin: 0 auto;
-            background-color: var(--white);
-            min-height: 100vh;
-            position: relative;
+        .gradient-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
         }
 
-        /* Navigation */
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px;
-            background-color: var(--white);
-            border-bottom: 1px solid var(--gray-light);
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--black);
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
         }
 
-        .nav-section {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--gray-dark);
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
         }
 
-        .nav-arrow {
-            width: 20px;
-            height: 20px;
-            background-color: var(--gray-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: var(--gray-dark);
-            cursor: pointer;
-        }
-
-        /* Screen container */
-        .screen {
-            display: none;
-            padding: 20px;
-        }
-
-        .screen.active {
-            display: block;
-        }
-
-        /* Welcome Screen */
-        .welcome-card {
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-
-        .avatar {
-            width: 48px;
-            height: 48px;
-            background-color: var(--gray-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 16px;
-        }
-
-        .greeting {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .balance-label {
-            font-size: 14px;
-            color: var(--gray-dark);
-            margin-bottom: 4px;
-        }
-
-        .balance-amount {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .sales-summary {
-            font-size: 14px;
-            color: var(--gray-dark);
-        }
-
-        /* Product Grid */
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .product-card {
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .product-card:hover {
-            border-color: var(--black);
-        }
-
-        .product-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--gray-light);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            margin-bottom: 12px;
-        }
-
-        .product-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .product-max {
-            font-size: 12px;
-            color: var(--gray-dark);
-            margin-bottom: 4px;
-        }
-
-        .product-rate {
-            font-size: 12px;
-            color: var(--gray-dark);
-            margin-bottom: 8px;
-        }
-
-        .product-feature {
-            font-size: 12px;
-            color: var(--black);
-            font-weight: 500;
-        }
-
-        /* Simulation Screen */
-        .simulation-header {
-            margin-bottom: 24px;
-        }
-
-        .sim-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .sim-subtitle {
-            font-size: 14px;
-            color: var(--gray-dark);
-        }
-
-        .amount-input {
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .amount-label {
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-
-        .amount-field {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .amount-text {
-            flex: 1;
-            border: none;
-            outline: none;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .quick-amount {
-            background-color: var(--gray-light);
-            border: none;
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .quick-amount:hover {
-            background-color: var(--gray-dark);
-            color: var(--white);
-        }
-
-        .comparison-cards {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .comparison-card {
-            flex: 1;
-            min-width: 140px;
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            cursor: pointer;
-        }
-
-        .comparison-card.selected {
-            border-color: var(--black);
-            background-color: var(--gray-light);
-        }
-
-        .comp-label {
-            font-size: 12px;
-            color: var(--gray-dark);
-            margin-bottom: 4px;
-        }
-
-        .comp-amount {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .comp-detail {
-            font-size: 12px;
-            color: var(--gray-dark);
-        }
-
-        .chart {
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .chart-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .chart-line {
-            height: 2px;
-            background-color: var(--gray-light);
-            position: relative;
-            margin-bottom: 8px;
-        }
-
-        .chart-point {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: var(--black);
-            border-radius: 50%;
-            top: -3px;
-        }
-
-        .chart-point:nth-child(1) { left: 0; }
-        .chart-point:nth-child(2) { left: 25%; }
-        .chart-point:nth-child(3) { left: 50%; }
-        .chart-point:nth-child(4) { left: 75%; }
-
-        .chart-labels {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            color: var(--gray-dark);
-        }
-
-        .summary-card {
-            background-color: var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            margin-bottom: 20px;
-        }
-
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-
-        .summary-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .summary-label {
-            font-size: 14px;
-            color: var(--gray-dark);
-        }
-
-        .summary-value {
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        /* Buttons */
-        .btn-primary {
-            width: 100%;
-            background-color: var(--black);
-            color: var(--white);
-            border: none;
-            border-radius: var(--border-radius);
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 12px;
-        }
-
-        .btn-secondary {
-            width: 100%;
-            background-color: var(--white);
-            color: var(--black);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Toggle */
-        .toggle {
-            display: flex;
-            background-color: var(--gray-light);
-            border-radius: 20px;
-            padding: 4px;
-            margin-bottom: 20px;
-        }
-
-        .toggle-option {
-            flex: 1;
-            padding: 8px 16px;
-            border-radius: 16px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .toggle-option.active {
-            background-color: var(--white);
-            color: var(--black);
-        }
-
-        /* Confirmation */
-        .confirmation-card {
-            text-align: center;
-            background-color: var(--white);
-            border: 1px solid var(--gray-light);
-            border-radius: var(--border-radius);
-            padding: 32px 20px;
-        }
-
-        .confirmation-icon {
-            width: 64px;
-            height: 64px;
-            background-color: var(--gray-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            margin: 0 auto 16px;
-        }
-
-        .confirmation-title {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .confirmation-text {
-            font-size: 14px;
-            color: var(--gray-dark);
-            margin-bottom: 24px;
-        }
-
-        /* Navigation dots */
-        .nav-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 20px;
-        }
-
-        .nav-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--gray-light);
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .nav-dot.active {
-            background-color: var(--black);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
-<body>
-    <div class="app">
-        <!-- Navigation -->
-        <nav class="nav">
-            <div class="nav-logo">Mercado Pago</div>
-            <div class="nav-section" id="navSection">Bem-vinda, Maria</div>
-            <div class="nav-arrow" onclick="nextScreen()">→</div>
-        </nav>
-
-        <!-- Screen 1: Welcome -->
-        <div class="screen active" id="screen1">
-            <div class="welcome-card">
-                <div class="avatar">👩</div>
-                <div class="greeting">Bem-vinda, Maria</div>
-                <div class="balance-label">Saldo em conta</div>
-                <div class="balance-amount">R$ 2.847,50</div>
-                <div class="sales-summary">Vendas hoje: R$ 1.234,00 (+15%)</div>
+<body class="bg-gray-50">
+    <!-- Hero Section -->
+    <div class="max-w-md mx-auto px-4 py-8">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden fade-in">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-purple-600 p-8 text-center text-white">
+                <div class="w-20 h-20 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="text-3xl">🚀</span>
+                </div>
+                <h1 class="text-3xl font-bold mb-2">Super App Financiera</h1>
+                <p class="text-blue-100 text-lg">MVP para Latinoamérica</p>
+                <p class="text-sm text-blue-200 mt-2">Prototipos funcionales • Mobile-first</p>
             </div>
 
-            <div class="nav-dots">
-                <div class="nav-dot active" onclick="goToScreen(1)"></div>
-                <div class="nav-dot" onclick="goToScreen(2)"></div>
-                <div class="nav-dot" onclick="goToScreen(3)"></div>
-                <div class="nav-dot" onclick="goToScreen(4)"></div>
-            </div>
-        </div>
-
-        <!-- Screen 2: Product Selection -->
-        <div class="screen" id="screen2">
-            <div style="margin-bottom: 24px;">
-                <div style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Escolha seu crédito</div>
-                <div style="font-size: 14px; color: var(--gray-dark);">Selecione o produto ideal para seu negócio</div>
-            </div>
-
-            <div class="product-grid">
-                <div class="product-card" onclick="selectProduct('emprestimo')">
-                    <div class="product-icon">💰</div>
-                    <div class="product-title">Empréstimo Pessoal</div>
-                    <div class="product-max">Até R$ 50.000</div>
-                    <div class="product-rate">A partir de 1,99% a.m.</div>
-                    <div class="product-feature">Dinheiro em até 1h</div>
+            <!-- Contenido -->
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2">¡Bienvenido!</h2>
+                    <p class="text-gray-600">Elige el prototipo que deseas explorar</p>
                 </div>
 
-                <div class="product-card" onclick="selectProduct('recebiveis')">
-                    <div class="product-icon">📄</div>
-                    <div class="product-title">Antecipação de Recebíveis</div>
-                    <div class="product-max">Até R$ 100.000</div>
-                    <div class="product-rate">A partir de 2,49% a.m.</div>
-                    <div class="product-feature">Antecipação automática</div>
+                <!-- Opciones de Prototipos -->
+                <div class="space-y-4 mb-8">
+                    <!-- Prototipo Principal -->
+                    <a href="./prototipos-prd/index.html" class="block gradient-primary text-white p-6 rounded-2xl card-hover">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <span class="text-2xl">🎯</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold">Onboarding Completo</h3>
+                                <p class="text-blue-100 text-sm">Experiencia completa de 5 pasos</p>
+                            </div>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Dashboard -->
+                    <a href="./prototipos-prd/dashboard.html" class="block bg-gradient-to-r from-green-500 to-blue-500 text-white p-6 rounded-2xl card-hover">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <span class="text-2xl">📊</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold">Dashboard Avanzado</h3>
+                                <p class="text-green-100 text-sm">Métricas y salud financiera</p>
+                            </div>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <!-- Glosario -->
+                    <a href="./prototipos-prd/glosario.html" class="block bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6 rounded-2xl card-hover">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-white bg-opacity-20 rounded-xl flex items-center justify-center mr-4">
+                                <span class="text-2xl">📚</span>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-semibold">Glosario Financiero</h3>
+                                <p class="text-purple-100 text-sm">Educación financiera interactiva</p>
+                            </div>
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </div>
+                    </a>
                 </div>
 
-                <div class="product-card" onclick="selectProduct('rotativo')">
-                    <div class="product-icon">🔄</div>
-                    <div class="product-title">Limite Rotativo</div>
-                    <div class="product-max">Até R$ 30.000</div>
-                    <div class="product-rate">A partir de 3,99% a.m.</div>
-                    <div class="product-feature">Flexibilidade total</div>
+                <!-- Información del Proyecto -->
+                <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-3">Sobre el Proyecto</h3>
+                    <div class="space-y-2 text-sm text-gray-600">
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Super App financiera enfocada en México</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Enfoque: "Ahorra Primero, Gasta Después"</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-3"></span>
+                            <span>Prototipos funcionales mobile-first</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Validación de PRD completo</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="product-card" onclick="selectProduct('estoque')">
-                    <div class="product-icon">📦</div>
-                    <div class="product-title">Crédito para Estoque</div>
-                    <div class="product-max">Até R$ 80.000</div>
-                    <div class="product-rate">A partir de 1,79% a.m.</div>
-                    <div class="product-feature">Compra programada</div>
+                <!-- Documentación -->
+                <div class="text-center">
+                    <a href="./PRD-Super-App-Financiera-LatAm.md" class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-xl hover:bg-gray-700 transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Ver PRD Completo
+                    </a>
                 </div>
-
-                <div class="product-card" onclick="selectProduct('empresarial')">
-                    <div class="product-icon">💳</div>
-                    <div class="product-title">Cartão Empresarial</div>
-                    <div class="product-max">Até R$ 25.000</div>
-                    <div class="product-rate">A partir de 2,99% a.m.</div>
-                    <div class="product-feature">Anuidade gratuita</div>
-                </div>
-            </div>
-
-            <div class="nav-dots">
-                <div class="nav-dot" onclick="goToScreen(1)"></div>
-                <div class="nav-dot active" onclick="goToScreen(2)"></div>
-                <div class="nav-dot" onclick="goToScreen(3)"></div>
-                <div class="nav-dot" onclick="goToScreen(4)"></div>
-            </div>
-        </div>
-
-        <!-- Screen 3: Simulation -->
-        <div class="screen" id="screen3">
-            <div class="simulation-header">
-                <div class="sim-title">Antecipação de Recebíveis</div>
-                <div class="sim-subtitle">Simule quanto você pode antecipar</div>
-            </div>
-
-            <div class="amount-input">
-                <div class="amount-label">Valor para antecipar</div>
-                <div class="amount-field">
-                    <input type="text" class="amount-text" value="R$ 15.000,00" id="amountInput">
-                    <button class="quick-amount" onclick="setAmount('+500')">+500</button>
-                    <button class="quick-amount" onclick="setAmount('+1000')">+1000</button>
-                    <button class="quick-amount" onclick="setAmount('Tudo')">Tudo</button>
-                </div>
-            </div>
-
-            <div class="toggle">
-                <div class="toggle-option active" onclick="setToggle('juros')">Juros baixos</div>
-                <div class="toggle-option" onclick="setToggle('parcela')">Parcela menor</div>
-            </div>
-
-            <div class="comparison-cards">
-                <div class="comparison-card selected" onclick="selectComparison('full')">
-                    <div class="comp-label">Receber Tudo Agora</div>
-                    <div class="comp-amount">R$ 13.725,00</div>
-                    <div class="comp-detail">Taxa: 2,75%</div>
-                </div>
-                <div class="comparison-card" onclick="selectComparison('partial')">
-                    <div class="comp-label">Receber Parcial</div>
-                    <div class="comp-amount">R$ 7.500,00</div>
-                    <div class="comp-detail">Taxa: 2,49%</div>
-                </div>
-            </div>
-
-            <div class="chart">
-                <div class="chart-title">Projeção do saldo</div>
-                <div class="chart-line">
-                    <div class="chart-point"></div>
-                    <div class="chart-point"></div>
-                    <div class="chart-point"></div>
-                    <div class="chart-point"></div>
-                </div>
-                <div class="chart-labels">
-                    <span>Hoje</span>
-                    <span>7 dias</span>
-                    <span>15 dias</span>
-                    <span>30 dias</span>
-                </div>
-            </div>
-
-            <div class="summary-card">
-                <div class="summary-row">
-                    <span class="summary-label">Valor líquido</span>
-                    <span class="summary-value">R$ 13.725,00</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">Juros totais</span>
-                    <span class="summary-value">R$ 1.275,00</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">Data do saque</span>
-                    <span class="summary-value">Hoje</span>
-                </div>
-                <div class="summary-row">
-                    <span class="summary-label">Valor das parcelas</span>
-                    <span class="summary-value">R$ 15.000,00</span>
-                </div>
-            </div>
-
-            <button class="btn-primary" onclick="goToScreen(4)">Solicitar Crédito</button>
-
-            <div class="nav-dots">
-                <div class="nav-dot" onclick="goToScreen(1)"></div>
-                <div class="nav-dot" onclick="goToScreen(2)"></div>
-                <div class="nav-dot active" onclick="goToScreen(3)"></div>
-                <div class="nav-dot" onclick="goToScreen(4)"></div>
             </div>
         </div>
 
-        <!-- Screen 4: Formalization -->
-        <div class="screen" id="screen4">
-            <div class="confirmation-card">
-                <div class="confirmation-icon">✅</div>
-                <div class="confirmation-title">Solicitação enviada!</div>
-                <div class="confirmation-text">
-                    Sua solicitação de Antecipação de Recebíveis foi enviada com sucesso.<br>
-                    Aprovação em até 2 horas.
-                </div>
-                <button class="btn-primary" onclick="goToScreen(1)">Voltar ao início</button>
-                <button class="btn-secondary">Ver detalhes</button>
-            </div>
-
-            <div class="nav-dots">
-                <div class="nav-dot" onclick="goToScreen(1)"></div>
-                <div class="nav-dot" onclick="goToScreen(2)"></div>
-                <div class="nav-dot" onclick="goToScreen(3)"></div>
-                <div class="nav-dot active" onclick="goToScreen(4)"></div>
-            </div>
+        <!-- Footer -->
+        <div class="text-center mt-8">
+            <p class="text-gray-500 text-sm">
+                Desarrollado con ❤️ para mejorar la salud financiera de Latinoamérica
+            </p>
+            <p class="text-gray-400 text-xs mt-2">
+                © 2024 • MVP versión funcional
+            </p>
         </div>
     </div>
 
     <script>
-        let currentScreen = 1;
-        const totalScreens = 4;
-        let selectedProduct = 'recebiveis';
-
-        function goToScreen(screenNumber) {
-            // Hide all screens
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-
-            // Show target screen
-            document.getElementById('screen' + screenNumber).classList.add('active');
-
-            // Update navigation dots
-            document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === screenNumber);
-            });
-
-            // Update nav section title
-            const titles = {
-                1: 'Bem-vinda, Maria',
-                2: 'Escolha seu crédito',
-                3: 'Simulação',
-                4: 'Confirmação'
-            };
-            document.getElementById('navSection').textContent = titles[screenNumber];
-
-            currentScreen = screenNumber;
-        }
-
-        function nextScreen() {
-            const next = currentScreen < totalScreens ? currentScreen + 1 : 1;
-            goToScreen(next);
-        }
-
-        function selectProduct(product) {
-            selectedProduct = product;
-            goToScreen(3);
-        }
-
-        function setAmount(amount) {
-            const input = document.getElementById('amountInput');
-            if (amount === 'Tudo') {
-                input.value = 'R$ 25.000,00';
-            } else if (amount === '+500') {
-                const current = parseFloat(input.value.replace('R$ ', '').replace('.', '').replace(',', '.'));
-                input.value = 'R$ ' + (current + 500).toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            } else if (amount === '+1000') {
-                const current = parseFloat(input.value.replace('R$ ', '').replace('.', '').replace(',', '.'));
-                input.value = 'R$ ' + (current + 1000).toLocaleString('pt-BR', {minimumFractionDigits: 2});
-            }
-        }
-
-        function setToggle(option) {
-            document.querySelectorAll('.toggle-option').forEach(opt => {
-                opt.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-
-        function selectComparison(type) {
-            document.querySelectorAll('.comparison-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            event.target.closest('.comparison-card').classList.add('selected');
-        }
-
-        // Initialize
-        goToScreen(1);
+        // Analytics o tracking si es necesario
+        console.log('🚀 Super App Financiera - MVP cargado exitosamente');
     </script>
 </body>
 </html>
