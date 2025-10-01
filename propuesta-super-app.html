@@ -9,37 +9,59 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0C111A 0%, #1A1F2E 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             min-height: 100vh;
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .solid-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
-        .neon-accent {
-            background: linear-gradient(135deg, #6AE2F0 0%, #8A5CFF 100%);
+        .dark-card {
+            background: #1f2937;
+            border: 1px solid #374151;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
         }
 
-        .neon-text {
-            background: linear-gradient(135deg, #6AE2F0 0%, #8A5CFF 100%);
+        .primary-accent {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+        }
+
+        .primary-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
+        .accent-solid {
+            background: #3b82f6;
+        }
+
         .gradient-success {
-            background: linear-gradient(135deg, #00E49A 0%, #10B981 100%);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
         .gradient-warning {
-            background: linear-gradient(135deg, #FFD166 0%, #F59E0B 100%);
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
         }
 
         .gradient-error {
-            background: linear-gradient(135deg, #FF5C7A 0%, #EF4444 100%);
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .success-solid {
+            background: #10b981;
+        }
+
+        .warning-solid {
+            background: #f59e0b;
+        }
+
+        .error-solid {
+            background: #ef4444;
         }
 
         .card-hover {
@@ -47,8 +69,8 @@
         }
 
         .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(106, 226, 240, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         .fade-in {
@@ -62,14 +84,14 @@
 
         .section-divider {
             height: 1px;
-            background: linear-gradient(90deg, transparent 0%, rgba(106, 226, 240, 0.3) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 50%, transparent 100%);
         }
 
         .feature-icon {
             width: 48px;
             height: 48px;
-            background: rgba(106, 226, 240, 0.1);
-            border: 1px solid rgba(106, 226, 240, 0.3);
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -77,26 +99,51 @@
             font-size: 24px;
         }
 
+        .feature-icon.dark {
+            background: #374151;
+            border: 1px solid #4b5563;
+        }
+
         .metric-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 16px;
             padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-card.dark {
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: #f9fafb;
         }
 
         .persona-card {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
             border-radius: 20px;
             padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .persona-card.dark {
+            background: #1f2937;
+            border: 1px solid #374151;
+            color: #f9fafb;
         }
 
         .flow-step {
-            background: rgba(106, 226, 240, 0.1);
-            border: 2px solid rgba(106, 226, 240, 0.3);
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
             border-radius: 16px;
             padding: 20px;
             position: relative;
+        }
+
+        .flow-step.dark {
+            background: #1f2937;
+            border: 2px solid #374151;
+            color: #f9fafb;
         }
 
         .flow-step::before {
@@ -106,7 +153,7 @@
             right: -20px;
             width: 40px;
             height: 2px;
-            background: linear-gradient(90deg, #6AE2F0, #8A5CFF);
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
             transform: translateY(-50%);
         }
 
@@ -144,38 +191,38 @@
         </div>
 
         <!-- Navegación -->
-        <div class="glass-card rounded-2xl p-6 mb-12 fade-in">
+        <div class="solid-card rounded-2xl p-6 mb-12 fade-in">
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="#vision" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Visión</a>
-                <a href="#personas" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Personas</a>
-                <a href="#arquitectura" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Arquitectura</a>
-                <a href="#flujos" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Flujos</a>
-                <a href="#visual" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Visual</a>
-                <a href="#prototipos" class="px-6 py-3 neon-accent rounded-xl hover:opacity-90 transition-all">Ver Prototipos</a>
+                <a href="#vision" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all">Visión</a>
+                <a href="#personas" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all">Personas</a>
+                <a href="#arquitectura" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all">Arquitectura</a>
+                <a href="#flujos" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all">Flujos</a>
+                <a href="#visual" class="px-6 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-all">Visual</a>
+                <a href="#prototipos" class="px-6 py-3 primary-accent text-white rounded-xl hover:opacity-90 transition-all">Ver Prototipos</a>
             </div>
         </div>
 
         <!-- Visión y Principios -->
         <section id="vision" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Visión y Principios</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Visión y Principios</h2>
             
             <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <div class="glass-card rounded-2xl p-8 card-hover">
+                <div class="solid-card rounded-2xl p-8 card-hover">
                     <div class="feature-icon mb-4">
                         <span>🎯</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4">Propósito</h3>
-                    <p class="text-gray-300 leading-relaxed">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Propósito</h3>
+                    <p class="text-gray-600 leading-relaxed">
                         Un hub financiero móvil que centraliza créditos, presupuestos, ahorro, inversiones, seguros, pagos y educación, con IA proactiva que guía, anticipa y empodera a los usuarios.
                     </p>
                 </div>
 
-                <div class="glass-card rounded-2xl p-8 card-hover">
+                <div class="solid-card rounded-2xl p-8 card-hover">
                     <div class="feature-icon mb-4">
                         <span>⚡</span>
                     </div>
-                    <h3 class="text-xl font-semibold mb-4">Principios</h3>
-                    <ul class="text-gray-300 space-y-2">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Principios</h3>
+                    <ul class="text-gray-600 space-y-2">
                         <li>• Claridad primero</li>
                         <li>• Confianza y control</li>
                         <li>• Proactividad útil</li>
@@ -185,29 +232,29 @@
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl p-8">
-                <h3 class="text-2xl font-semibold mb-6">Características Clave</h3>
+            <div class="solid-card rounded-2xl p-8">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-800">Características Clave</h3>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="text-center">
                         <div class="feature-icon mx-auto mb-4">
                             <span>🤖</span>
                         </div>
-                        <h4 class="font-semibold mb-2">IA Proactiva</h4>
-                        <p class="text-sm text-gray-300">Anticipa necesidades y ofrece recomendaciones personalizadas</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">IA Proactiva</h4>
+                        <p class="text-sm text-gray-600">Anticipa necesidades y ofrece recomendaciones personalizadas</p>
                     </div>
                     <div class="text-center">
                         <div class="feature-icon mx-auto mb-4">
                             <span>💬</span>
                         </div>
-                        <h4 class="font-semibold mb-2">Conversacional</h4>
-                        <p class="text-sm text-gray-300">Chat y voz para interacciones naturales</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Conversacional</h4>
+                        <p class="text-sm text-gray-600">Chat y voz para interacciones naturales</p>
                     </div>
                     <div class="text-center">
                         <div class="feature-icon mx-auto mb-4">
                             <span>🎮</span>
                         </div>
-                        <h4 class="font-semibold mb-2">Gamificación</h4>
-                        <p class="text-sm text-gray-300">Hábitos financieros a través del juego</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Gamificación</h4>
+                        <p class="text-sm text-gray-600">Hábitos financieros a través del juego</p>
                     </div>
                 </div>
             </div>
@@ -217,7 +264,7 @@
 
         <!-- Personas -->
         <section id="personas" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Personas Clave</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Personas Clave</h2>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="persona-card card-hover">
@@ -225,10 +272,10 @@
                         <div class="w-16 h-16 gradient-success rounded-full flex items-center justify-center mx-auto mb-3">
                             <span class="text-2xl">💳</span>
                         </div>
-                        <h3 class="font-semibold">Explorador del Crédito</h3>
-                        <p class="text-sm text-gray-400">25-35 años</p>
+                        <h3 class="font-semibold text-gray-800">Explorador del Crédito</h3>
+                        <p class="text-sm text-gray-500">25-35 años</p>
                     </div>
-                    <p class="text-sm text-gray-300">Busca financiación rápida y transparente para proyectos personales o emergencias.</p>
+                    <p class="text-sm text-gray-600">Busca financiación rápida y transparente para proyectos personales o emergencias.</p>
                 </div>
 
                 <div class="persona-card card-hover">
@@ -236,21 +283,21 @@
                         <div class="w-16 h-16 gradient-warning rounded-full flex items-center justify-center mx-auto mb-3">
                             <span class="text-2xl">📊</span>
                         </div>
-                        <h3 class="font-semibold">Organizador</h3>
-                        <p class="text-sm text-gray-400">30-45 años</p>
+                        <h3 class="font-semibold text-gray-800">Organizador</h3>
+                        <p class="text-sm text-gray-500">30-45 años</p>
                     </div>
-                    <p class="text-sm text-gray-300">Necesita control de gastos, presupuestos y metas financieras claras.</p>
+                    <p class="text-sm text-gray-600">Necesita control de gastos, presupuestos y metas financieras claras.</p>
                 </div>
 
                 <div class="persona-card card-hover">
                     <div class="text-center mb-4">
-                        <div class="w-16 h-16 neon-accent rounded-full flex items-center justify-center mx-auto mb-3">
+                        <div class="w-16 h-16 primary-accent rounded-full flex items-center justify-center mx-auto mb-3">
                             <span class="text-2xl">📈</span>
                         </div>
-                        <h3 class="font-semibold">Crecimiento</h3>
-                        <p class="text-sm text-gray-400">35-50 años</p>
+                        <h3 class="font-semibold text-gray-800">Crecimiento</h3>
+                        <p class="text-sm text-gray-500">35-50 años</p>
                     </div>
-                    <p class="text-sm text-gray-300">Busca inversiones simples y seguros para hacer crecer su patrimonio.</p>
+                    <p class="text-sm text-gray-600">Busca inversiones simples y seguros para hacer crecer su patrimonio.</p>
                 </div>
 
                 <div class="persona-card card-hover">
@@ -258,10 +305,10 @@
                         <div class="w-16 h-16 gradient-error rounded-full flex items-center justify-center mx-auto mb-3">
                             <span class="text-2xl">🎓</span>
                         </div>
-                        <h3 class="font-semibold">Aprendiz</h3>
-                        <p class="text-sm text-gray-400">20-40 años</p>
+                        <h3 class="font-semibold text-gray-800">Aprendiz</h3>
+                        <p class="text-sm text-gray-500">20-40 años</p>
                     </div>
-                    <p class="text-sm text-gray-300">Quiere educación financiera personalizada y acompañamiento continuo.</p>
+                    <p class="text-sm text-gray-600">Quiere educación financiera personalizada y acompañamiento continuo.</p>
                 </div>
             </div>
         </section>
@@ -270,80 +317,80 @@
 
         <!-- Arquitectura de Información -->
         <section id="arquitectura" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Arquitectura de Información</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Arquitectura de Información</h2>
             
-            <div class="glass-card rounded-2xl p-8 mb-8">
-                <h3 class="text-xl font-semibold mb-6">Mapa de Navegación</h3>
+            <div class="solid-card rounded-2xl p-8 mb-8">
+                <h3 class="text-xl font-semibold mb-6 text-gray-800">Mapa de Navegación</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">🏠 Inicio (Hub)</h4>
-                        <p class="text-sm text-gray-300">Snapshot 360°, acciones rápidas, feed inteligente</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">🏠 Inicio (Hub)</h4>
+                        <p class="text-sm text-gray-600">Snapshot 360°, acciones rápidas, feed inteligente</p>
                     </div>
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">💰 Financiación</h4>
-                        <p class="text-sm text-gray-300">Simulador, solicitud, gestión de créditos</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">💰 Financiación</h4>
+                        <p class="text-sm text-gray-600">Simulador, solicitud, gestión de créditos</p>
                     </div>
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">📊 Gastos</h4>
-                        <p class="text-sm text-gray-300">Presupuestos, categorización, análisis</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">📊 Gastos</h4>
+                        <p class="text-sm text-gray-600">Presupuestos, categorización, análisis</p>
                     </div>
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">🎯 Ahorro</h4>
-                        <p class="text-sm text-gray-300">Metas, cofres, ahorro automático</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">🎯 Ahorro</h4>
+                        <p class="text-sm text-gray-600">Metas, cofres, ahorro automático</p>
                     </div>
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">📈 Inversiones</h4>
-                        <p class="text-sm text-gray-300">Portafolios guiados, performance</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">📈 Inversiones</h4>
+                        <p class="text-sm text-gray-600">Portafolios guiados, performance</p>
                     </div>
                     <div class="metric-card">
-                        <h4 class="font-semibold mb-2">🛡️ Seguros</h4>
-                        <p class="text-sm text-gray-300">Cotización, coberturas, siniestros</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">🛡️ Seguros</h4>
+                        <p class="text-sm text-gray-600">Cotización, coberturas, siniestros</p>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl p-8">
-                <h3 class="text-xl font-semibold mb-6">Modelo de Navegación</h3>
+            <div class="solid-card rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-6 text-gray-800">Modelo de Navegación</h3>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="font-semibold mb-4">Tab Bar (5 secciones)</h4>
+                        <h4 class="font-semibold mb-4 text-gray-800">Tab Bar (5 secciones)</h4>
                         <div class="space-y-2">
-                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
-                                <span>🏠 Inicio</span>
-                                <span class="text-xs text-gray-400">Hub principal</span>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="text-gray-800">🏠 Inicio</span>
+                                <span class="text-xs text-gray-500">Hub principal</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
-                                <span>💰 Financiación</span>
-                                <span class="text-xs text-gray-400">Créditos</span>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="text-gray-800">💰 Financiación</span>
+                                <span class="text-xs text-gray-500">Créditos</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
-                                <span>💳 Pagar</span>
-                                <span class="text-xs text-gray-400">Pagos</span>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="text-gray-800">💳 Pagar</span>
+                                <span class="text-xs text-gray-500">Pagos</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
-                                <span>📈 Invertir</span>
-                                <span class="text-xs text-gray-400">Inversiones</span>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="text-gray-800">📈 Invertir</span>
+                                <span class="text-xs text-gray-500">Inversiones</span>
                             </div>
-                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
-                                <span>⚙️ Más</span>
-                                <span class="text-xs text-gray-400">Configuración</span>
+                            <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                                <span class="text-gray-800">⚙️ Más</span>
+                                <span class="text-xs text-gray-500">Configuración</span>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <h4 class="font-semibold mb-4">Accesos Rápidos</h4>
+                        <h4 class="font-semibold mb-4 text-gray-800">Accesos Rápidos</h4>
                         <div class="space-y-2">
-                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
                                 <span class="mr-3">🔍</span>
-                                <span>Search/Command omnibox</span>
+                                <span class="text-gray-800">Search/Command omnibox</span>
                             </div>
-                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
                                 <span class="mr-3">➕</span>
-                                <span>FAB contextual</span>
+                                <span class="text-gray-800">FAB contextual</span>
                             </div>
-                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                            <div class="flex items-center p-3 bg-gray-50 rounded-lg">
                                 <span class="mr-3">🔔</span>
-                                <span>Bandeja de notificaciones</span>
+                                <span class="text-gray-800">Bandeja de notificaciones</span>
                             </div>
                         </div>
                     </div>
@@ -355,93 +402,93 @@
 
         <!-- Flujos Críticos -->
         <section id="flujos" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Flujos Críticos</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Flujos Críticos</h2>
             
             <div class="space-y-8">
                 <!-- Flujo de Crédito -->
-                <div class="glass-card rounded-2xl p-8">
-                    <h3 class="text-xl font-semibold mb-6">Solicitud de Crédito</h3>
+                <div class="solid-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Solicitud de Crédito</h3>
                     <div class="flex flex-wrap gap-4">
                         <div class="flow-step">
                             <div class="text-center">
-                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <span class="text-lg">1</span>
+                                <div class="w-12 h-12 primary-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg text-white">1</span>
                                 </div>
-                                <h4 class="font-semibold text-sm">Precalificación</h4>
-                                <p class="text-xs text-gray-400">Soft check</p>
+                                <h4 class="font-semibold text-sm text-gray-800">Precalificación</h4>
+                                <p class="text-xs text-gray-500">Soft check</p>
                             </div>
                         </div>
                         <div class="flow-step">
                             <div class="text-center">
-                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <span class="text-lg">2</span>
+                                <div class="w-12 h-12 primary-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg text-white">2</span>
                                 </div>
-                                <h4 class="font-semibold text-sm">Simulación</h4>
-                                <p class="text-xs text-gray-400">Sliders interactivos</p>
+                                <h4 class="font-semibold text-sm text-gray-800">Simulación</h4>
+                                <p class="text-xs text-gray-500">Sliders interactivos</p>
                             </div>
                         </div>
                         <div class="flow-step">
                             <div class="text-center">
-                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <span class="text-lg">3</span>
+                                <div class="w-12 h-12 primary-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg text-white">3</span>
                                 </div>
-                                <h4 class="font-semibold text-sm">Documentos</h4>
-                                <p class="text-xs text-gray-400">Guía paso a paso</p>
+                                <h4 class="font-semibold text-sm text-gray-800">Documentos</h4>
+                                <p class="text-xs text-gray-500">Guía paso a paso</p>
                             </div>
                         </div>
                         <div class="flow-step">
                             <div class="text-center">
-                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <span class="text-lg">4</span>
+                                <div class="w-12 h-12 primary-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg text-white">4</span>
                                 </div>
-                                <h4 class="font-semibold text-sm">Firma</h4>
-                                <p class="text-xs text-gray-400">Digital</p>
+                                <h4 class="font-semibold text-sm text-gray-800">Firma</h4>
+                                <p class="text-xs text-gray-500">Digital</p>
                             </div>
                         </div>
                         <div class="flow-step">
                             <div class="text-center">
-                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
-                                    <span class="text-lg">5</span>
+                                <div class="w-12 h-12 primary-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg text-white">5</span>
                                 </div>
-                                <h4 class="font-semibold text-sm">Desembolso</h4>
-                                <p class="text-xs text-gray-400">Inmediato</p>
+                                <h4 class="font-semibold text-sm text-gray-800">Desembolso</h4>
+                                <p class="text-xs text-gray-500">Inmediato</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Flujo de IA -->
-                <div class="glass-card rounded-2xl p-8">
-                    <h3 class="text-xl font-semibold mb-6">Capa Conversacional (IA)</h3>
+                <div class="solid-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Capa Conversacional (IA)</h3>
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <h4 class="font-semibold mb-4">Intents Principales</h4>
+                            <h4 class="font-semibold mb-4 text-gray-800">Intents Principales</h4>
                             <div class="space-y-2">
-                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
-                                    <span class="text-sm">"Dame un reporte de mi situación financiera"</span>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-800">"Dame un reporte de mi situación financiera"</span>
                                 </div>
-                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
-                                    <span class="text-sm">"Simula un crédito de $5,000"</span>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-800">"Simula un crédito de $5,000"</span>
                                 </div>
-                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
-                                    <span class="text-sm">"¿Dónde puedo ahorrar $100/mes?"</span>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-800">"¿Dónde puedo ahorrar $100/mes?"</span>
                                 </div>
-                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
-                                    <span class="text-sm">"Crea una meta para viajar"</span>
+                                <div class="p-3 bg-gray-50 rounded-lg">
+                                    <span class="text-sm text-gray-800">"Crea una meta para viajar"</span>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <h4 class="font-semibold mb-4">Proactividad</h4>
+                            <h4 class="font-semibold mb-4 text-gray-800">Proactividad</h4>
                             <div class="space-y-2">
-                                <div class="p-3 bg-green-500 bg-opacity-20 rounded-lg">
-                                    <span class="text-sm">💡 "Te ahorras $X si..."</span>
+                                <div class="p-3 bg-green-100 rounded-lg">
+                                    <span class="text-sm text-green-800">💡 "Te ahorras $X si..."</span>
                                 </div>
-                                <div class="p-3 bg-yellow-500 bg-opacity-20 rounded-lg">
-                                    <span class="text-sm">⚠️ "Suscripción duplicada"</span>
+                                <div class="p-3 bg-yellow-100 rounded-lg">
+                                    <span class="text-sm text-yellow-800">⚠️ "Suscripción duplicada"</span>
                                 </div>
-                                <div class="p-3 bg-blue-500 bg-opacity-20 rounded-lg">
-                                    <span class="text-sm">🎯 "Mejor tasa disponible"</span>
+                                <div class="p-3 bg-blue-100 rounded-lg">
+                                    <span class="text-sm text-blue-800">🎯 "Mejor tasa disponible"</span>
                                 </div>
                             </div>
                         </div>
@@ -454,92 +501,92 @@
 
         <!-- Sistema Visual -->
         <section id="visual" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Sistema Visual</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Sistema Visual</h2>
             
             <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <!-- Colores -->
-                <div class="glass-card rounded-2xl p-8">
-                    <h3 class="text-xl font-semibold mb-6">Paleta de Colores</h3>
+                <div class="solid-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Paleta de Colores</h3>
                     <div class="space-y-4">
                         <div class="flex items-center justify-between">
-                            <span>Base Dark</span>
-                            <div class="color-token" style="background: #0C111A;"></div>
+                            <span class="text-gray-800">Base Dark</span>
+                            <div class="color-token" style="background: #1a1a1a;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Glass Card</span>
-                            <div class="color-token" style="background: rgba(255,255,255,0.08);"></div>
+                            <span class="text-gray-800">Card Sólido</span>
+                            <div class="color-token" style="background: #ffffff;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Primario</span>
-                            <div class="color-token" style="background: #6AE2F0;"></div>
+                            <span class="text-gray-800">Primario</span>
+                            <div class="color-token" style="background: #3b82f6;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Éxito</span>
-                            <div class="color-token" style="background: #00E49A;"></div>
+                            <span class="text-gray-800">Éxito</span>
+                            <div class="color-token" style="background: #10b981;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Alerta</span>
-                            <div class="color-token" style="background: #FFD166;"></div>
+                            <span class="text-gray-800">Alerta</span>
+                            <div class="color-token" style="background: #f59e0b;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Error</span>
-                            <div class="color-token" style="background: #FF5C7A;"></div>
+                            <span class="text-gray-800">Error</span>
+                            <div class="color-token" style="background: #ef4444;"></div>
                         </div>
                         <div class="flex items-center justify-between">
-                            <span>Neón Acento</span>
-                            <div class="color-token" style="background: #8A5CFF;"></div>
+                            <span class="text-gray-800">Acento</span>
+                            <div class="color-token" style="background: #1d4ed8;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Tipografía -->
-                <div class="glass-card rounded-2xl p-8">
-                    <h3 class="text-xl font-semibold mb-6">Tipografía</h3>
+                <div class="solid-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6 text-gray-800">Tipografía</h3>
                     <div class="space-y-4">
                         <div class="typography-sample">
-                            <div class="text-2xl font-bold mb-1">H1 - Títulos Principales</div>
-                            <div class="text-xs text-gray-400">28px/34px Bold</div>
+                            <div class="text-2xl font-bold mb-1 text-gray-800">H1 - Títulos Principales</div>
+                            <div class="text-xs text-gray-500">28px/34px Bold</div>
                         </div>
                         <div class="typography-sample">
-                            <div class="text-xl font-semibold mb-1">H2 - Subtítulos</div>
-                            <div class="text-xs text-gray-400">22px/28px Semibold</div>
+                            <div class="text-xl font-semibold mb-1 text-gray-800">H2 - Subtítulos</div>
+                            <div class="text-xs text-gray-500">22px/28px Semibold</div>
                         </div>
                         <div class="typography-sample">
-                            <div class="text-base font-medium mb-1">Body - Texto Principal</div>
-                            <div class="text-xs text-gray-400">16px/24px Medium</div>
+                            <div class="text-base font-medium mb-1 text-gray-800">Body - Texto Principal</div>
+                            <div class="text-xs text-gray-500">16px/24px Medium</div>
                         </div>
                         <div class="typography-sample">
-                            <div class="text-sm text-gray-300 mb-1">Caption - Texto Secundario</div>
-                            <div class="text-xs text-gray-400">13px/18px Regular</div>
+                            <div class="text-sm text-gray-600 mb-1">Caption - Texto Secundario</div>
+                            <div class="text-xs text-gray-500">13px/18px Regular</div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Componentes -->
-            <div class="glass-card rounded-2xl p-8">
-                <h3 class="text-xl font-semibold mb-6">Componentes Clave</h3>
+            <div class="solid-card rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-6 text-gray-800">Componentes Clave</h3>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="text-center">
-                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-16 h-16 solid-card rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">📱</span>
                         </div>
-                        <h4 class="font-semibold mb-2">Cards Vítreas</h4>
-                        <p class="text-sm text-gray-300">Glassmorfismo con blur elegante</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Cards Sólidas</h4>
+                        <p class="text-sm text-gray-600">Diseño limpio y consistente</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-16 h-16 solid-card rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">🎛️</span>
                         </div>
-                        <h4 class="font-semibold mb-2">Sliders Luminosos</h4>
-                        <p class="text-sm text-gray-300">Controles con glow interno</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Controles Modernos</h4>
+                        <p class="text-sm text-gray-600">Sliders y toggles intuitivos</p>
                     </div>
                     <div class="text-center">
-                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <div class="w-16 h-16 solid-card rounded-xl flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">✨</span>
                         </div>
-                        <h4 class="font-semibold mb-2">Microinteracciones</h4>
-                        <p class="text-sm text-gray-300">Animaciones fluidas 200-300ms</p>
+                        <h4 class="font-semibold mb-2 text-gray-800">Microinteracciones</h4>
+                        <p class="text-sm text-gray-600">Animaciones fluidas 200-300ms</p>
                     </div>
                 </div>
             </div>
@@ -549,16 +596,16 @@
 
         <!-- Prototipos -->
         <section id="prototipos" class="mb-16 fade-in">
-            <h2 class="text-3xl font-bold mb-8 neon-text">Prototipos Funcionales</h2>
+            <h2 class="text-3xl font-bold mb-8 primary-text">Prototipos Funcionales</h2>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <a href="./prototipos-prd/index.html" class="glass-card rounded-2xl p-8 card-hover block">
+                <a href="./prototipos-prd/index.html" class="solid-card rounded-2xl p-8 card-hover block">
                     <div class="text-center mb-6">
-                        <div class="w-20 h-20 neon-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <span class="text-3xl">🎯</span>
+                        <div class="w-20 h-20 primary-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl text-white">🎯</span>
                         </div>
-                        <h3 class="text-xl font-semibold mb-2">Onboarding Completo</h3>
-                        <p class="text-gray-300">Experiencia de 5 pasos con KYC, perfil y primera meta</p>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Onboarding Completo</h3>
+                        <p class="text-gray-600">Experiencia de 5 pasos con KYC, perfil y primera meta</p>
                     </div>
                     <div class="space-y-2 text-sm">
                         <div class="flex items-center text-gray-400">
