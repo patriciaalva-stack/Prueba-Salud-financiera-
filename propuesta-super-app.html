@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Super App Financiera - UX/UI Design</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0C111A 0%, #1A1F2E 100%);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .neon-accent {
+            background: linear-gradient(135deg, #6AE2F0 0%, #8A5CFF 100%);
+        }
+
+        .neon-text {
+            background: linear-gradient(135deg, #6AE2F0 0%, #8A5CFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-success {
+            background: linear-gradient(135deg, #00E49A 0%, #10B981 100%);
+        }
+
+        .gradient-warning {
+            background: linear-gradient(135deg, #FFD166 0%, #F59E0B 100%);
+        }
+
+        .gradient-error {
+            background: linear-gradient(135deg, #FF5C7A 0%, #EF4444 100%);
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(106, 226, 240, 0.15);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(106, 226, 240, 0.3) 50%, transparent 100%);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(106, 226, 240, 0.1);
+            border: 1px solid rgba(106, 226, 240, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .persona-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 24px;
+        }
+
+        .flow-step {
+            background: rgba(106, 226, 240, 0.1);
+            border: 2px solid rgba(106, 226, 240, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .flow-step::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #6AE2F0, #8A5CFF);
+            transform: translateY(-50%);
+        }
+
+        .flow-step:last-child::before {
+            display: none;
+        }
+
+        .color-token {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .typography-sample {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Header -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="text-center mb-12 fade-in">
+            <div class="w-24 h-24 neon-accent rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <span class="text-3xl">🚀</span>
+            </div>
+            <h1 class="text-5xl font-bold mb-4">
+                Super App <span class="neon-text">Financiera</span>
+            </h1>
+            <p class="text-xl text-gray-300 mb-2">Hub integral de servicios financieros</p>
+            <p class="text-gray-400">Diseño UX/UI moderno inspirado en fintechs líderes</p>
+        </div>
+
+        <!-- Navegación -->
+        <div class="glass-card rounded-2xl p-6 mb-12 fade-in">
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#vision" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Visión</a>
+                <a href="#personas" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Personas</a>
+                <a href="#arquitectura" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Arquitectura</a>
+                <a href="#flujos" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Flujos</a>
+                <a href="#visual" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl hover:bg-opacity-20 transition-all">Visual</a>
+                <a href="#prototipos" class="px-6 py-3 neon-accent rounded-xl hover:opacity-90 transition-all">Ver Prototipos</a>
+            </div>
+        </div>
+
+        <!-- Visión y Principios -->
+        <section id="vision" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Visión y Principios</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="glass-card rounded-2xl p-8 card-hover">
+                    <div class="feature-icon mb-4">
+                        <span>🎯</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Propósito</h3>
+                    <p class="text-gray-300 leading-relaxed">
+                        Un hub financiero móvil que centraliza créditos, presupuestos, ahorro, inversiones, seguros, pagos y educación, con IA proactiva que guía, anticipa y empodera a los usuarios.
+                    </p>
+                </div>
+
+                <div class="glass-card rounded-2xl p-8 card-hover">
+                    <div class="feature-icon mb-4">
+                        <span>⚡</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Principios</h3>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>• Claridad primero</li>
+                        <li>• Confianza y control</li>
+                        <li>• Proactividad útil</li>
+                        <li>• Personalización responsable</li>
+                        <li>• Velocidad percibida</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8">
+                <h3 class="text-2xl font-semibold mb-6">Características Clave</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4">
+                            <span>🤖</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">IA Proactiva</h4>
+                        <p class="text-sm text-gray-300">Anticipa necesidades y ofrece recomendaciones personalizadas</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4">
+                            <span>💬</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Conversacional</h4>
+                        <p class="text-sm text-gray-300">Chat y voz para interacciones naturales</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon mx-auto mb-4">
+                            <span>🎮</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Gamificación</h4>
+                        <p class="text-sm text-gray-300">Hábitos financieros a través del juego</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Personas -->
+        <section id="personas" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Personas Clave</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="persona-card card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 gradient-success rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-2xl">💳</span>
+                        </div>
+                        <h3 class="font-semibold">Explorador del Crédito</h3>
+                        <p class="text-sm text-gray-400">25-35 años</p>
+                    </div>
+                    <p class="text-sm text-gray-300">Busca financiación rápida y transparente para proyectos personales o emergencias.</p>
+                </div>
+
+                <div class="persona-card card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 gradient-warning rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-2xl">📊</span>
+                        </div>
+                        <h3 class="font-semibold">Organizador</h3>
+                        <p class="text-sm text-gray-400">30-45 años</p>
+                    </div>
+                    <p class="text-sm text-gray-300">Necesita control de gastos, presupuestos y metas financieras claras.</p>
+                </div>
+
+                <div class="persona-card card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 neon-accent rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-2xl">📈</span>
+                        </div>
+                        <h3 class="font-semibold">Crecimiento</h3>
+                        <p class="text-sm text-gray-400">35-50 años</p>
+                    </div>
+                    <p class="text-sm text-gray-300">Busca inversiones simples y seguros para hacer crecer su patrimonio.</p>
+                </div>
+
+                <div class="persona-card card-hover">
+                    <div class="text-center mb-4">
+                        <div class="w-16 h-16 gradient-error rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-2xl">🎓</span>
+                        </div>
+                        <h3 class="font-semibold">Aprendiz</h3>
+                        <p class="text-sm text-gray-400">20-40 años</p>
+                    </div>
+                    <p class="text-sm text-gray-300">Quiere educación financiera personalizada y acompañamiento continuo.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Arquitectura de Información -->
+        <section id="arquitectura" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Arquitectura de Información</h2>
+            
+            <div class="glass-card rounded-2xl p-8 mb-8">
+                <h3 class="text-xl font-semibold mb-6">Mapa de Navegación</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">🏠 Inicio (Hub)</h4>
+                        <p class="text-sm text-gray-300">Snapshot 360°, acciones rápidas, feed inteligente</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">💰 Financiación</h4>
+                        <p class="text-sm text-gray-300">Simulador, solicitud, gestión de créditos</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">📊 Gastos</h4>
+                        <p class="text-sm text-gray-300">Presupuestos, categorización, análisis</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">🎯 Ahorro</h4>
+                        <p class="text-sm text-gray-300">Metas, cofres, ahorro automático</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">📈 Inversiones</h4>
+                        <p class="text-sm text-gray-300">Portafolios guiados, performance</p>
+                    </div>
+                    <div class="metric-card">
+                        <h4 class="font-semibold mb-2">🛡️ Seguros</h4>
+                        <p class="text-sm text-gray-300">Cotización, coberturas, siniestros</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-6">Modelo de Navegación</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="font-semibold mb-4">Tab Bar (5 secciones)</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span>🏠 Inicio</span>
+                                <span class="text-xs text-gray-400">Hub principal</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span>💰 Financiación</span>
+                                <span class="text-xs text-gray-400">Créditos</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span>💳 Pagar</span>
+                                <span class="text-xs text-gray-400">Pagos</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span>📈 Invertir</span>
+                                <span class="text-xs text-gray-400">Inversiones</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span>⚙️ Más</span>
+                                <span class="text-xs text-gray-400">Configuración</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Accesos Rápidos</h4>
+                        <div class="space-y-2">
+                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span class="mr-3">🔍</span>
+                                <span>Search/Command omnibox</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span class="mr-3">➕</span>
+                                <span>FAB contextual</span>
+                            </div>
+                            <div class="flex items-center p-3 bg-white bg-opacity-5 rounded-lg">
+                                <span class="mr-3">🔔</span>
+                                <span>Bandeja de notificaciones</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Flujos Críticos -->
+        <section id="flujos" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Flujos Críticos</h2>
+            
+            <div class="space-y-8">
+                <!-- Flujo de Crédito -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6">Solicitud de Crédito</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="flow-step">
+                            <div class="text-center">
+                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg">1</span>
+                                </div>
+                                <h4 class="font-semibold text-sm">Precalificación</h4>
+                                <p class="text-xs text-gray-400">Soft check</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="text-center">
+                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg">2</span>
+                                </div>
+                                <h4 class="font-semibold text-sm">Simulación</h4>
+                                <p class="text-xs text-gray-400">Sliders interactivos</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="text-center">
+                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg">3</span>
+                                </div>
+                                <h4 class="font-semibold text-sm">Documentos</h4>
+                                <p class="text-xs text-gray-400">Guía paso a paso</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="text-center">
+                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg">4</span>
+                                </div>
+                                <h4 class="font-semibold text-sm">Firma</h4>
+                                <p class="text-xs text-gray-400">Digital</p>
+                            </div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="text-center">
+                                <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-lg">5</span>
+                                </div>
+                                <h4 class="font-semibold text-sm">Desembolso</h4>
+                                <p class="text-xs text-gray-400">Inmediato</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flujo de IA -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6">Capa Conversacional (IA)</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold mb-4">Intents Principales</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
+                                    <span class="text-sm">"Dame un reporte de mi situación financiera"</span>
+                                </div>
+                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
+                                    <span class="text-sm">"Simula un crédito de $5,000"</span>
+                                </div>
+                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
+                                    <span class="text-sm">"¿Dónde puedo ahorrar $100/mes?"</span>
+                                </div>
+                                <div class="p-3 bg-white bg-opacity-5 rounded-lg">
+                                    <span class="text-sm">"Crea una meta para viajar"</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-4">Proactividad</h4>
+                            <div class="space-y-2">
+                                <div class="p-3 bg-green-500 bg-opacity-20 rounded-lg">
+                                    <span class="text-sm">💡 "Te ahorras $X si..."</span>
+                                </div>
+                                <div class="p-3 bg-yellow-500 bg-opacity-20 rounded-lg">
+                                    <span class="text-sm">⚠️ "Suscripción duplicada"</span>
+                                </div>
+                                <div class="p-3 bg-blue-500 bg-opacity-20 rounded-lg">
+                                    <span class="text-sm">🎯 "Mejor tasa disponible"</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Sistema Visual -->
+        <section id="visual" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Sistema Visual</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- Colores -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6">Paleta de Colores</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span>Base Dark</span>
+                            <div class="color-token" style="background: #0C111A;"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Glass Card</span>
+                            <div class="color-token" style="background: rgba(255,255,255,0.08);"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Primario</span>
+                            <div class="color-token" style="background: #6AE2F0;"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Éxito</span>
+                            <div class="color-token" style="background: #00E49A;"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Alerta</span>
+                            <div class="color-token" style="background: #FFD166;"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Error</span>
+                            <div class="color-token" style="background: #FF5C7A;"></div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>Neón Acento</span>
+                            <div class="color-token" style="background: #8A5CFF;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tipografía -->
+                <div class="glass-card rounded-2xl p-8">
+                    <h3 class="text-xl font-semibold mb-6">Tipografía</h3>
+                    <div class="space-y-4">
+                        <div class="typography-sample">
+                            <div class="text-2xl font-bold mb-1">H1 - Títulos Principales</div>
+                            <div class="text-xs text-gray-400">28px/34px Bold</div>
+                        </div>
+                        <div class="typography-sample">
+                            <div class="text-xl font-semibold mb-1">H2 - Subtítulos</div>
+                            <div class="text-xs text-gray-400">22px/28px Semibold</div>
+                        </div>
+                        <div class="typography-sample">
+                            <div class="text-base font-medium mb-1">Body - Texto Principal</div>
+                            <div class="text-xs text-gray-400">16px/24px Medium</div>
+                        </div>
+                        <div class="typography-sample">
+                            <div class="text-sm text-gray-300 mb-1">Caption - Texto Secundario</div>
+                            <div class="text-xs text-gray-400">13px/18px Regular</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Componentes -->
+            <div class="glass-card rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-6">Componentes Clave</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">📱</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Cards Vítreas</h4>
+                        <p class="text-sm text-gray-300">Glassmorfismo con blur elegante</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">🎛️</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Sliders Luminosos</h4>
+                        <p class="text-sm text-gray-300">Controles con glow interno</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 glass-card rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-2xl">✨</span>
+                        </div>
+                        <h4 class="font-semibold mb-2">Microinteracciones</h4>
+                        <p class="text-sm text-gray-300">Animaciones fluidas 200-300ms</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Prototipos -->
+        <section id="prototipos" class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Prototipos Funcionales</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="./prototipos-prd/index.html" class="glass-card rounded-2xl p-8 card-hover block">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 neon-accent rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🎯</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Onboarding Completo</h3>
+                        <p class="text-gray-300">Experiencia de 5 pasos con KYC, perfil y primera meta</p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span>KYC básico</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span>Evaluación de perfil</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span>Primera meta financiera</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                            <span>Regla de ahorro automático</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./prototipos-prd/dashboard.html" class="glass-card rounded-2xl p-8 card-hover block">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 gradient-success rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">📊</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Dashboard Avanzado</h3>
+                        <p class="text-gray-300">Métricas, salud financiera y reportes IA</p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                            <span>Snapshot 360°</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                            <span>Reportes inteligentes</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                            <span>Recomendaciones IA</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
+                            <span>Gamificación</span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="./prototipos-prd/glosario.html" class="glass-card rounded-2xl p-8 card-hover block">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 gradient-warning rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">📚</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Educación Financiera</h3>
+                        <p class="text-gray-300">Glosario interactivo y rutas de aprendizaje</p>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                            <span>Conceptos básicos</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                            <span>Rutas personalizadas</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                            <span>Quizzes interactivos</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span>
+                            <span>Progreso gamificado</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="text-center mt-8">
+                <a href="./index.html" class="inline-flex items-center px-8 py-4 neon-accent rounded-2xl font-semibold text-lg hover:opacity-90 transition-all">
+                    <span class="mr-2">🚀</span>
+                    Ver Todos los Prototipos
+                </a>
+            </div>
+        </section>
+
+        <div class="section-divider my-16"></div>
+
+        <!-- Roadmap -->
+        <section class="mb-16 fade-in">
+            <h2 class="text-3xl font-bold mb-8 neon-text">Roadmap de Desarrollo</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="text-center mb-4">
+                        <div class="w-12 h-12 gradient-success rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl">🎯</span>
+                        </div>
+                        <h3 class="font-semibold">MVP (0-3 meses)</h3>
+                        <p class="text-sm text-gray-400">Funcionalidades core</p>
+                    </div>
+                    <ul class="text-sm text-gray-300 space-y-1">
+                        <li>• Onboarding completo</li>
+                        <li>• Simulador de créditos</li>
+                        <li>• Presupuestos básicos</li>
+                        <li>• Ahorro automático</li>
+                        <li>• Pagos QR/servicios</li>
+                        <li>• Asistente chat base</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="text-center mb-4">
+                        <div class="w-12 h-12 gradient-warning rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl">🚀</span>
+                        </div>
+                        <h3 class="font-semibold">V1 (3-6 meses)</h3>
+                        <p class="text-sm text-gray-400">Funcionalidades avanzadas</p>
+                    </div>
+                    <ul class="text-sm text-gray-300 space-y-1">
+                        <li>• Asistente de voz</li>
+                        <li>• Inversiones guiadas</li>
+                        <li>• Seguros micro</li>
+                        <li>• Educación personalizada</li>
+                        <li>• Gamificación completa</li>
+                        <li>• IA proactiva avanzada</li>
+                    </ul>
+                </div>
+
+                <div class="glass-card rounded-2xl p-6">
+                    <div class="text-center mb-4">
+                        <div class="w-12 h-12 neon-accent rounded-full flex items-center justify-center mx-auto mb-3">
+                            <span class="text-xl">🌟</span>
+                        </div>
+                        <h3 class="font-semibold">V2 (6-12 meses)</h3>
+                        <p class="text-sm text-gray-400">Ecosistema completo</p>
+                    </div>
+                    <ul class="text-sm text-gray-300 space-y-1">
+                        <li>• Marketplace de productos</li>
+                        <li>• Portabilidad de deudas</li>
+                        <li>• Inversión ampliada</li>
+                        <li>• Seguros on-demand</li>
+                        <li>• Finanzas familiares</li>
+                        <li>• Integraciones bancarias</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="text-center py-8">
+            <div class="glass-card rounded-2xl p-8">
+                <h3 class="text-xl font-semibold mb-4">¿Listo para el siguiente paso?</h3>
+                <p class="text-gray-300 mb-6">Explora los prototipos funcionales y experimenta la Super App Financiera</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="./prototipos-prd/index.html" class="px-6 py-3 neon-accent rounded-xl font-semibold hover:opacity-90 transition-all">
+                        Probar Onboarding
+                    </a>
+                    <a href="./PRD-Super-App-Financiera-LatAm.md" class="px-6 py-3 bg-white bg-opacity-10 rounded-xl font-semibold hover:bg-opacity-20 transition-all">
+                        Ver PRD Completo
+                    </a>
+                </div>
+            </div>
+            <p class="text-gray-500 text-sm mt-8">
+                Diseñado con ❤️ para empoderar la vida financiera de Latinoamérica
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animación de entrada
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar animación a elementos
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        console.log('🚀 Propuesta Super App Financiera cargada exitosamente');
+    </script>
+</body>
+</html>
